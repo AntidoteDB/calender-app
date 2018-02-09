@@ -1,0 +1,89 @@
+version: "2"
+services:
+  antidote1:
+    image: mweber/antidotedb:latest
+    environment:
+      NODE_NAME: "antidote@antidote1"
+      SHORT_NAME: "true"
+    cap_add:
+        - NET_ADMIN
+    networks:
+        - interdc
+        - local1
+  antidote2:
+    image: mweber/antidotedb:latest
+    environment:
+      NODE_NAME: "antidote@antidote2"
+      SHORT_NAME: "true"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - interdc
+      - local2
+
+  link:
+    image: erlang:19
+    volumes:
+      - .:/code
+    command: '/code/link.sh'
+    links:
+      - antidote1
+      - antidote2
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - interdc
+
+  server1:
+    image: node:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - ANTIDOTE_HOST=antidote1
+    volumes:
+      - .:/code
+    command: "node server.js"
+    working_dir: /code
+    links:
+      - link
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - local1
+
+  server2:
+    image: node:latest
+    ports:
+      - "3001:3000"
+    environment:
+      - ANTIDOTE_HOST=antidote2
+    volumes:
+      - .:/code
+    command: "node server.js"
+    working_dir: /code
+    links:
+      - link
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - local2
+
+  shell:
+    image: node:latest
+    volumes:
+      - .:/local
+    links:
+      - link
+    networks:
+      - interdc
+      - local1
+      - local2
+
+networks:
+  interdc:
+  local1:
+  local2:
+
+  #docker-compose exec antidote1 tc qdisc replace dev eth0 root netem loss 100%
+  #docker-compose exec antidote1 tc qdisc replace dev eth0 root netem loss 0%
+

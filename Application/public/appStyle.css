@@ -1,0 +1,10 @@
+.greentext {
+    color: green;
+}
+.bluetext {
+    color: blue;
+}
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}

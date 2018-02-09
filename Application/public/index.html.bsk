@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel='stylesheet' href='fullcalendar.css' />
+    <link rel='stylesheet' href="calendarLayout.css"/>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="client.js"></script>
+    <script src="organizer.js"></script>
+    <script src='moment.min.js'></script>
+    <script src='fullcalendar.js'></script>
+    <style>
+        table, td, th { border: 1px solid black; }
+    </style>
+</head>
+<body>
+<header>
+    Your Name: <select id="cbNames" onchange="onChangeCbNames(this)"></select>
+    Calendar View: <select id="cbCalendars" onchange="onChangeCbCalendars(this)"><option selected>Privat</option><option>Business</option><option>global</option></select>
+    <input type="button" id="test" value="test button" onclick="test()"/>
+    <input type="button" id="update" value="Update" onclick="getUpdates()"/>
+</header>
+<table>
+    <tr>
+        <th>Calendar</th>
+        <th>Appointment properties</th>
+    </tr>
+    <tr>
+        <td><div id='calendar'></div><div>
+
+            </div>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <th>Description</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td><input id="name" type="text" placeholder="Titel" /></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><input id="desc" type="text" placeholder="desc..." /></td>
+                </tr>
+                <tr>
+                    <td>Start</td>
+                    <td><input type="datetime-local" id="startDate"/></td>
+                </tr>
+                <tr>
+                    <td>End</td>
+                    <td>
+                        <div>
+                            <input type="checkbox" id="allDay" onclick='handleCBClick(this)'/>Allday?
+                        </div>
+                        <input type="datetime-local" id="endDate"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Participants</td>
+                    <td><select id = "selParticipants" multiple = "multiple"></select></td>
+                </tr>
+                <tr>
+                    <td>Priority</td>
+                    <td><input id="priority" type="number" value="1" min="1" max="10"></td>
+                </tr>
+                <tr>
+                    <td><input id="add" type="submit" value="add" onclick="addAppointment()" /><input id="edit" type="submit" value="edit" onclick="editAppointment()" /><input id="edit_conflict" type="submit" value="edit(with conflict)" onclick="editAppointmentWithConflict()" /><input id="delete" type="submit" value="delete" onclick="removeAppointment()"/></td>
+                </tr>
+            </table>
+            <!--<input id="desc" type="text" placeholder="Beschreibung"/>
+            <div>
+                <label>
+                    AllDay?:
+
+                </label>
+            </div>
+            <div>
+                <label>
+                    Start:
+
+                </label>
+                <label>
+                    End:
+
+                </label>
+
+            </div>
+            <div>
+
+            </div>-->
+        </td>
+    </tr>
+</table>
+<input type="text" id="newParticipant" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)"/><input type="button" id="btnNewParticipant" value="add new participant" onclick="addNewParticipant()"/>
+<textarea rows="100" cols="500" id="console"></textarea>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{
+  "name": "rest",
+  "description": "test mit rest._.",
+  "author": "Tim Dellmann",
+  "dependencies": {
+    "antidote_ts_client": "^0.1.0",
+    "body-parser": "^1.15.2",
+    "express": "^4.9.8",
+    "node-restful": "^0.2.5",
+    "socket.io": "*"
+  },
+  "devDependencies" : {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-preset-es2017": "^6.16.0",
+    "babel-preset-react": "^6.16.0"
+  },
+  "scripts": {
+    "test-cov": "./runTest.sh",
+    "test" : "./runTestCoverage.sh"
+  },
+ "babel": {
+    "presets": [
+      "es2017"
+    ],
+    "plugins": [
+      "transform-react-jsx",
+      "transform-es2015-modules-commonjs"
+    ]
+  }
+}
