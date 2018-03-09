@@ -1,13 +1,13 @@
 version: "2"
 services:
   antidote1:
-    image: mweber/antidotedb:latest
-    environment:
+    image: mweber/antidotedb:latest # Specify the image to start the container from. Can either be a repository/tag or a partial image ID
+    environment: # Add environment variables. You can use either an array or a dictionary.
       NODE_NAME: "antidote@antidote1"
       SHORT_NAME: "true"
-    cap_add:
-        - NET_ADMIN
-    networks:
+    cap_add: # Add or drop container capabilities. See 'man 7 capabilities' for a full list
+        - NET_ADMIN # Perform various network-related operations.
+    networks: # Networks to join.
         - interdc
         - local1
   antidote2:
@@ -23,10 +23,10 @@ services:
 
   link:
     image: erlang:19
-    volumes:
+    volumes: #Mount host folders or named volumes. Named volumes need to be specified with the top-level volumes key.
       - .:/code
     command: '/code/link.sh'
-    links:
+    links: # Link to containers in another service. Either specify both the service name and a link alias ("SERVICE:ALIAS"), or just the service name.
       - antidote1
       - antidote2
     cap_add:
@@ -42,7 +42,7 @@ services:
       - ANTIDOTE_HOST=antidote1
     volumes:
       - .:/code
-    command: "node server.js"
+    command: "node server.js" #Override the default command
     working_dir: /code
     links:
       - link
