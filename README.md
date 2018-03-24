@@ -2,7 +2,7 @@ To run the application, change current directory to /Application
 
     cd Application
 
-and run 
+and run
 
 	`sudo docker-compose up`
 
@@ -32,6 +32,7 @@ If you want to reset the database state, you can just run
 Hints: The synchronization of the single data centers can last some seconds, so do not wonder if the updates from DC1 do not occurre in DC2 immediately.
 The same is valid for conflicts as well.
 
-To install necessary node.js packages, run 
+To install necessary node.js packages, run
     npm install
 
+In case of the error happening during the execution of "link.sh", change line break types from "Windows" to "Unix" (It is convenient to do that in Notepad++)
