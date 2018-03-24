@@ -9,7 +9,7 @@
     "node-restful": "^0.2.5",
     "socket.io": "*"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.7",
@@ -20,9 +20,9 @@
   },
   "scripts": {
     "test-cov": "./runTest.sh",
-    "test" : "./runTestCoverage.sh"
+    "test": "./runTestCoverage.sh"
   },
- "babel": {
+  "babel": {
     "presets": [
       "es2017"
     ],

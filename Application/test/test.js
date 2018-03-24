@@ -3,7 +3,7 @@ var assert = require('assert');
 var express = require('express');
 var path = require('path');
 var port = 3000; //testing port
-var calendar = "Privat";
+var calendar = "Business";
 var participant = "testParticipant";
 var id1;
 var id2;
@@ -202,4 +202,4 @@ Array.prototype.contains = function(obj) {
         result |= (this[i] === obj);
     }
     return result;
-}
+};

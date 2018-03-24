@@ -117,16 +117,10 @@ exports.deleteAppointment = function(aId){
 exports.deleteParticipant = function (participant) {
     // more complex too, since the deleted participant has to be removed from all involved appointments
     // the following removes all aIds and the userapps for the given participant
-    UserApps(participant, "Privat").read()
-        .then(priv => {
-            antidote.update(UserApps(participant, "Privat").removeAll(priv));
-            //console.log("Apps in calendar privat of " + participant + " removed");
-        })
-        .catch(err=>console.log("failed to read privat calendar of " + participant + ". Maybe it was empty", err));
+
     UserApps(participant, "Business").read()
         .then(priv => {
             antidote.update(UserApps(participant, "Business").removeAll(priv));
-            //console.log("Apps in calendar business of " + participant + " removed");
         })
         .catch(err=>console.log("failed to read Business calendar of " + participant + ". Maybe it was empty", err));
     // remove participant from all appointments

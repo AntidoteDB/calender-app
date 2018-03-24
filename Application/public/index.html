@@ -22,7 +22,7 @@
 <header>
     Your Name: <select id="cbNames" onchange="onChangeCbNames(this)"></select>
     <input type="button" id="removeParticipant" value="remParti" onclick="onRemoveParticipants()"/>
-    Calendar View: <select id="cbCalendars" onchange="onChangeCbCalendars(this)"><option selected>Privat</option><option>Business</option><option>Global</option></select>
+    Calendar View: <label id="cbCalendars">Business</label>
     <!--<input type="button" id="enableInput" value="enableInput" onclick="showInput()"/>
     <input type="button" id="enableChoose" value="enableChoose" onclick="showChoose()"/>
     <input type="button" id="test" value="get Conflict" onclick="test()"/>-->
@@ -31,7 +31,7 @@
 
 <table>
     <tr>
-        <th>Calendar<div id="calInfoGlobal" hidden="hidden"><label class="greentext">: Privat</label>, <label class="bluetext">Business</label>. Changes are disabled for global calendars</div></th>
+        <th>Calendar<div id="calInfoGlobal" hidden="hidden"><label class="bluetext">: Business</label>. Changes are disabled for global calendars</div></th>
         <th>Appointment properties</th>
     </tr>
     <tr>
