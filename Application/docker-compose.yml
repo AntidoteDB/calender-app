@@ -2,24 +2,18 @@ version: "2"
 services:
   antidote1:
     image: mweber/antidotedb:latest # Specify the image to start the container from. Can either be a repository/tag or a partial image ID
+    ports:
+     - "127.0.0.1:8087:8087"
     environment: # Add environment variables. You can use either an array or a dictionary.
       NODE_NAME: "antidote@antidote1"
       SHORT_NAME: "true"
-    cap_add: # Add or drop container capabilities. See 'man 7 capabilities' for a full list
-        - NET_ADMIN # Perform various network-related operations.
-    networks: # Networks to join.
-        - interdc
-        - local1
   antidote2:
     image: mweber/antidotedb:latest
+    ports:
+     - "127.0.0.1:8088:8087"
     environment:
       NODE_NAME: "antidote@antidote2"
       SHORT_NAME: "true"
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - interdc
-      - local2
 
   link:
     image: erlang:19
@@ -29,60 +23,6 @@ services:
     links: # Link to containers in another service. Either specify both the service name and a link alias ("SERVICE:ALIAS"), or just the service name.
       - antidote1
       - antidote2
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - interdc
-
-  server1:
-    image: node:latest
-    ports:
-      - "3000:3000"
-    environment:
-      - ANTIDOTE_HOST=antidote1
-    volumes:
-      - .:/code
-    command: "node server.js" #Override the default command
-    working_dir: /code
-    links:
-      - link
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - local1
-
-  server2:
-    image: node:latest
-    ports:
-      - "3001:3000"
-    environment:
-      - ANTIDOTE_HOST=antidote2
-    volumes:
-      - .:/code
-    command: "node server.js"
-    working_dir: /code
-    links:
-      - link
-    cap_add:
-      - NET_ADMIN
-    networks:
-      - local2
-
-  shell:
-    image: node:latest
-    volumes:
-      - .:/local
-    links:
-      - link
-    networks:
-      - interdc
-      - local1
-      - local2
-
-networks:
-  interdc:
-  local1:
-  local2:
 
   #docker-compose exec antidote1 tc qdisc replace dev eth0 root netem loss 100%
   #docker-compose exec antidote1 tc qdisc replace dev eth0 root netem loss 0%

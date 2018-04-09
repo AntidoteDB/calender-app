@@ -17,25 +17,28 @@ let allDayChecked = false;        // is allday radio checked? influences appeara
 let participantsList = [];        // list of available participants shown in the comboBox
 $(document).ready(function () {
     initialize();  //initializes GUI
-    $('#calendar').fullCalendar({
-        header: {                  // set header elements and style of FullCalendar
-            left: "prev,next",
-            center: "",
-            right: 'agendaWeek'
-        },
-        defaultView: "agendaWeek",
-        allDaySlot: true,
-        minTime: "08:00:00",
-        maxTime: "19:00:00",
-        height: 500,
-        draggable: true,
-        eventSources: [],
-        eventClick: function (calEvent, jsEvent, view) {
-            eventClick(calEvent);               // event, if an event (appointment in fullCalendar) is clicked
-        },
-        dayClick: function (date, jsEvent, view) {
-            dayClick(date);                     //event, if empty timeslot in fullCalendar is clicked
-        }
+    let $calendars = $('#calendar-1, #calendar-2');
+    $calendars.each(function(i, elem){
+        $(elem).fullCalendar({
+            header: {                  // set header elements and style of FullCalendar
+                left: "prev,next",
+                center: "",
+                right: 'agendaWeek'
+            },
+            defaultView: "agendaWeek",
+            allDaySlot: true,
+            minTime: "08:00:00",
+            maxTime: "19:00:00",
+            height: 500,
+            draggable: true,
+            eventSources: [],
+            eventClick: function (calEvent, jsEvent, view) {
+                eventClick(calEvent);               // event, if an event (appointment in fullCalendar) is clicked
+            },
+            dayClick: function (date, jsEvent, view) {
+                dayClick(date);                     //event, if empty timeslot in fullCalendar is clicked
+            }
+        });
     });
 });
 
@@ -43,7 +46,7 @@ function onEnterNewParticipant(event) // event, if new participant is entered in
 {
     code = event.keyCode;
     if (code == 13)
-        addNewParticipant();  //send addParticipant request to server
+        addNewParticipant(event);  //send addParticipant request to server
 }
 
 function onEnterComment(event)                  // event, ... new comment ...
@@ -56,6 +59,8 @@ function onEnterComment(event)                  // event, ... new comment ...
 function onChangeCbNames(e) {                   // event, if another participant was selected
     let valueSelected = e.value;
     currentParticipant = valueSelected;
+    debugger;
+    //TODO PASS parameteres to clearform
     clearForm();                                // set all textfields to empty
     getUpdates();                               //request data for the new view from the server
 }
@@ -96,27 +101,27 @@ function getAppointmentFromForm() {      // read appointment from inputform
     return res;
 }
 
-function clearForm() { // set all input fields to empty and shows inputform
+function clearForm(calendarId) { // set all input fields to empty and shows inputform
     currentID = "";
-    document.getElementById("iallDay").checked = false;
-    handleAllDayCBClick(document.getElementById("iallDay"));
-    document.getElementById("istartDate").value = new Date();
-    document.getElementById("iendDate").value = new Date();
-    $('#iname').val("");
-    $('#idesc').val("");
-    $('#ipriority').val("");
-    setComments([]);
-    document.getElementById("iedit").disabled = true;
-    document.getElementById("idelete").disabled = true;
-    document.getElementById("iadd").disabled = true;
-    document.getElementById("iCommentInput").disabled = true;
-    let container = $('#iSelParticipants');
+    document.getElementById("iallDay-" + calendarId).checked = false;
+    handleAllDayCBClick(document.getElementById("iallDay-" + calendarId));
+    document.getElementById("istartDate-"+calendarId).value = new Date();
+    document.getElementById("iendDate-"+calendarId).value = new Date();
+    $('#iname-'+calendarId).val("");
+    $('#idesc-'+calendarId).val("");
+    $('#ipriority-'+calendarId).val("");
+    // TODO change the function below (rewrite it accoding to the calendar's ids)
+    setComments([]); 
+    document.getElementById("iedit-" + calendarId).disabled = true;
+    document.getElementById("idelete-"+calendarId).disabled = true;
+    document.getElementById("iadd-"+calendarId).disabled = true;
+    document.getElementById("iCommentInput-"+calendarId).disabled = true;
+    let container = $('#iSelParticipants-'+calendarId);
     let inputs = container.find('input');
     let id = inputs.length;
     for (let i = 1; i <= id; i++)    //deselect all patricipants
         document.getElementById("participant" + i).checked = false;
-    showInput();
-
+    showInput(); // TODO rewrite according to ids
 }
 
 function setEventToForm(ev) {        //if an event(appointment) was clicked, the regarding data is set to the inputform
@@ -159,6 +164,7 @@ function isAllDayChecked() { //returns flag, if field 'allDay' is checked in the
 }
 
 function initialize() {      // initializes GUI and fullCalendar with default values
+    // clear forms of both calendars
     clearForm(); //
     currentCalendar = "Business";
     $('#cbcalendars').val(currentCalendar);
@@ -236,6 +242,7 @@ function setParticipants(participants) {     // set available participants to co
     let isEmpty = (currentParticipant == "" || (typeof currentParticipant == "undefined")) ? true : false;
     let x = document.getElementById("cbNames");
     $('#cbNames').empty();
+debugger;
     x.size = 1;
     $('#iSelParticipants').empty();
     for (let i = 0; i < participants.length; i++) {

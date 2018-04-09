@@ -45,15 +45,15 @@ exports.addComment = function (id, comment, res) {
             res.send({result: false});
         });
 };
-exports.getUpdates = function (participant, calendar, res) {
+exports.getUpdates = function (calendarId, participant, calendar, res) {
     //this request requires more database operations (nested query), therefore this procedure is more complex
     let updateObject = {participants: [], apps: []}; //create empty object, that will be sent back to the client
     let UserApps, UserApps2, AllApps;
     let y, y2;
-    let x = storage.readAllParticipants();
+    let x = storage.readAllParticipants(calendarId);
 
-    y = storage.readAllUserAppos(participant, calendar);
-    let z = storage.readAllAppointments();
+    y = storage.readAllUserAppos(calendarId, participant, calendar);
+    let z = storage.readAllAppointments(calendarId);
 
     x.then(valuea => {
         updateObject.participants = valuea;
@@ -80,8 +80,8 @@ exports.getUpdates = function (participant, calendar, res) {
 
 
 };
-exports.addParticipant = function (participant, res) { // add new participant to storage
-    let result = storage.addParticipant(participant);
+exports.addParticipant = function (calendarId, participant, res) { // add new participant to storage
+    let result = storage.addParticipant(calendarId, participant);
     result.then(_ => {
         res.send({result: true});
     })
