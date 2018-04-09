@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 (function () {
     'use strict';
 
@@ -54,16 +55,16 @@
     // 'req' = request data, 'res' is result value for sending back data to the client
     apiRouter.post("/:calendar_id/update", function (req, res) {
         let calendarId = req.params.calendar_id;
-        let repId = parseInt(req.params.rep_id);
         console.log("try to request updates for participant: " + req.body.participant + ", calendar: " + req.body.calendar);
         let value = req.body;
         wrapper.getUpdates(calendarId, value.participant, value.calendar, res);
     });
 
-    apiRouter.post("/addAppointment", function (req, res) {
+    apiRouter.post("/:calendar_id/addAppointment", function (req, res) {
+        let calendarId = req.params.calendar_id;
         console.log("try to add Appointment " + JSON.stringify(req.body.appointment) + " to calendar: " + req.body.calendar);
         let value = req.body;
-        wrapper.addAppointment(value.calendar, value.appointment, res);
+        wrapper.addAppointment(calendarId, value.calendar, value.appointment, res);
     });
     apiRouter.post("/:calendar_id/addParticipant", function (req, res) {
         let calendarId = req.params.calendar_id;
@@ -71,26 +72,30 @@
         console.log("try to add Participant: " + value.name);
         wrapper.addParticipant(calendarId, value.name, res);
     });
-    apiRouter.post("/removeAppointment", function (req, res) {
+    apiRouter.post("/:calendar_id/removeAppointment", function (req, res) {
+        let calendarId = req.params.calendar_id;
         let value = req.body;
         console.log("try to remove appointment with id " + value.id);
-        wrapper.removeAppointment(value.id, res);
+        wrapper.removeAppointment(calendarId, value.id, res);
     });
-    apiRouter.post("/editAppointment", function (req, res) {
+    apiRouter.post("/:calendar_id/editAppointment", function (req, res) {
+        let calendarId = req.params.calendar_id;
         let value = req.body;
         console.log("try to edit appointment with id: " + value.id);
         console.log("edit app: " + JSON.stringify(value));
-        wrapper.editAppointment(value.id, value.app, value.calendar, value.comment, res);
+        wrapper.editAppointment(calendarId, value.id, value.app, value.calendar, value.comment, res);
     });
-    apiRouter.post("/addComment", function (req, res) {
+    apiRouter.post("/:calendar_id/addComment", function (req, res) {
+        let calendarId = req.params.calendar_id;
         let value = req.body;
         console.log("try to add comment to app (id: " + value.id + "), comment: " + value.comment);
-        wrapper.addComment(value.id, value.comment, res);
+        wrapper.addComment(calendarId, value.id, value.comment, res);
     });
-    apiRouter.post("/removeParticipant", function (req, res) {
+    apiRouter.post("/:calendar_id/removeParticipant", function (req, res) {
+        let calendarId = req.params.calendar_id;
         let value = req.body;
         console.log("try to remove Participant " + value.participant);
-        wrapper.removeParticipant(value.participant, res);
+        wrapper.removeParticipant(calendarId, value.participant, res);
     });
 
     app.use("/api", apiRouter);

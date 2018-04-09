@@ -1,6 +1,6 @@
 // this file is responsible for most of the GUI interactions. It also triggers requests
 // executed by the user
-
+/*jshint esversion: 6 */
 
 //source field for the calendar, 'events' are the appointments
 let source = {
@@ -138,15 +138,14 @@ function setEventToForm(ev) {        //if an event(appointment) was clicked, the
     else
         end = new Date(ev.end);
     let str1 = start.getFullYear() + "-" +          // transform date to string in format: 'yyyy-mm-ddThh:mm'
-        ((start.getMonth() + 1).toString().length < 2 ? "0" + (start.getMonth() + 1) : (start.getMonth() + 1))
-        + "-" +
+        ((start.getMonth() + 1).toString().length < 2 ? "0" + (start.getMonth() + 1) : (start.getMonth() + 1))+ 
+        "-" +
         (start.getDate().toString().length < 2 ? "0" + (start.getDate()) : (start.getDate())) + "T" +
         ((start.getHours() - 2).toString().length < 2 ? "0" + (start.getHours() - 2) : (start.getHours() - 2)) + ":" +
         (start.getMinutes().toString().length < 2 ? "0" + start.getMinutes() : start.getMinutes());
     document.getElementById('istartDate').value = str1;
     let str2 = end.getFullYear() + "-" +
-        ((end.getMonth() + 1).toString().length < 2 ? "0" + (end.getMonth() + 1) : (end.getMonth() + 1))
-        + "-" +
+        ((end.getMonth() + 1).toString().length < 2 ? "0" + (end.getMonth() + 1) : (end.getMonth() + 1))+ "-" +
         (end.getDate().toString().length < 2 ? "0" + (end.getDate()) : (end.getDate())) + "T" +
         ((end.getHours() - 2).toString().length < 2 ? "0" + (end.getHours() - 2) : (end.getHours() - 2)) + ":" +
         (end.getMinutes().toString().length < 2 ? "0" + end.getMinutes() : end.getMinutes());
@@ -272,7 +271,7 @@ function setComments(comments) {        //add comments to field in inputform
         return;
     comments.sort();    //sort all comments to date of creation
     $('#iCommentBox').empty();
-    for (i in comments) {
+    for (var i in comments) {
         $('#iCommentBox').append(
             $('<li></li>').append(
                 $('<span>').text(comments[i]))
@@ -357,8 +356,7 @@ function setEventToChooseForm(ev) {  // set conflicting appointment to chooseFor
     for (let i = 0; i < ev.start.length; i++) {
         let start = new Date(ev.start[i]);
         let str1 = start.getFullYear() + "-" +
-            ((start.getMonth() + 1).toString().length < 2 ? "0" + (start.getMonth() + 1) : (start.getMonth() + 1))
-            + "-" +
+            ((start.getMonth() + 1).toString().length < 2 ? "0" + (start.getMonth() + 1) : (start.getMonth() + 1)) + "-" +
             (start.getDate().toString().length < 2 ? "0" + (start.getDate()) : (start.getDate())) + "T" +
             ((start.getHours() - 2).toString().length < 2 ? "0" + (start.getHours() - 2) : (start.getHours() - 2)) + ":" +
             (start.getMinutes().toString().length < 2 ? "0" + start.getMinutes() : start.getMinutes());
@@ -371,8 +369,7 @@ function setEventToChooseForm(ev) {  // set conflicting appointment to chooseFor
     for (let i = 0; i < ev.end.length; i++) {
         let end = new Date(ev.end[i]);
         let str2 = end.getFullYear() + "-" +
-            ((end.getMonth() + 1).toString().length < 2 ? "0" + (end.getMonth() + 1) : (end.getMonth() + 1))
-            + "-" +
+            ((end.getMonth() + 1).toString().length < 2 ? "0" + (end.getMonth() + 1) : (end.getMonth() + 1)) + "-" +
             (end.getDate().toString().length < 2 ? "0" + (end.getDate()) : (end.getDate())) + "T" +
             ((end.getHours() - 2).toString().length < 2 ? "0" + (end.getHours() - 2) : (end.getHours() - 2)) + ":" +
             (end.getMinutes().toString().length < 2 ? "0" + end.getMinutes() : end.getMinutes());

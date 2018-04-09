@@ -3,8 +3,8 @@ let storage = require('./storage.js');
 // 'res' is the result value for sending back data to the client.
 // the view is defined by parameters 'participant' and 'calendar'
 
-exports.addAppointment = function (calendar, app, res) {
-    let result = storage.writeNewAppointment(calendar, app); //write new appointment to storage
+exports.addAppointment = function (calendarId, calendar, app, res) {
+    let result = storage.writeNewAppointment(calendarId, calendar, app); //write new appointment to storage
     result.then(_ => {
         res.send({result: true});
     }) // if operation was successful, a true flag is sent to the client
@@ -13,8 +13,8 @@ exports.addAppointment = function (calendar, app, res) {
             res.send({result: false});
         });
 };
-exports.editAppointment = function (id, app, calendar, comment, res) {
-    let result = storage.updateAppointment(id, app, calendar, comment, res); //update appointment in antidote
+exports.editAppointment = function (calendarId, id, app, calendar, comment, res) {
+    let result = storage.updateAppointment(calendarId, id, app, calendar, comment, res); //update appointment in antidote
     result.then(_ => {
         console.log("Appointment successfully edited with id: " + id + ", try to read all Appointments");
         res.send({result: true});
@@ -24,8 +24,8 @@ exports.editAppointment = function (id, app, calendar, comment, res) {
             res.send({result: false});
         });
 };
-exports.removeAppointment = function (id, res) {
-    let result = storage.deleteAppointment(id);
+exports.removeAppointment = function (calendarId, id, res) {
+    let result = storage.deleteAppointment(calendarId, id);
     result.then(_ => {
         console.log("Appointment successfully removed with id: " + id);
         res.send({result: true});
@@ -35,8 +35,8 @@ exports.removeAppointment = function (id, res) {
             res.send({result: false});
         });
 };
-exports.addComment = function (id, comment, res) {
-    let result = storage.writeComment(id, comment);
+exports.addComment = function (calendarId, id, comment, res) {
+    let result = storage.writeComment(calendarId, id, comment);
     result.then(_ => {/*console.log("Comment " + comment + " to app " + id);*/
         res.send({result: true});
     })
@@ -90,8 +90,8 @@ exports.addParticipant = function (calendarId, participant, res) { // add new pa
             res.send({result: false});
         });
 };
-exports.removeParticipant = function (participant, res) { // remove participant from storage
-    let result = storage.deleteParticipant(participant);
+exports.removeParticipant = function (calendarId, participant, res) { // remove participant from storage
+    let result = storage.deleteParticipant(calendarId, participant);
     result.then(_ => {
         res.send({result: true});
     })
