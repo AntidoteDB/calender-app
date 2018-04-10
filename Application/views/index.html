@@ -30,9 +30,9 @@
         <div class="row">
                     Your Name:
                     <select id="cbNames-1" onchange="onChangeCbNames(this)"></select>
-                    <input type="button" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
+                    <input type="button" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
                     <label id="cbCalendars-1">Business</label>
-                    <input type="button" id="update-1" value="Update" onclick="getUpdates()" />
+                    <input type="button" id="update-1" value="Update" onclick="getUpdates(this)" />
             <div class="col-md-12" id="part1">
                 <div id="calendar1">
                     <table>
@@ -80,7 +80,7 @@
                                             <td>End</td>
                                             <td>
                                                 <div>
-                                                    <input type="checkbox" id="iallDay-1" onclick='handleAllDayCBClick(this)' />Allday?
+                                                    <input type="checkbox" id="iallDay-1" onclick='onAllDayClick(this)' />Allday?
                                                 </div>
                                                 <input type="datetime-local" id="iendDate-1" />
                                             </td>
@@ -107,9 +107,9 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="iadd-1" type="submit" value="add" onclick="addAppointment()" />
-                                                <input id="iedit-1" type="submit" value="edit" onclick="editAppointment()" />
-                                                <input id="idelete-1" type="submit" value="delete" onclick="removeAppointment()" />
+                                                <input id="iadd-1" type="submit" value="add" onclick="addAppointment(this)" />
+                                                <input id="iedit-1" type="submit" value="edit" onclick="editAppointment(this)" />
+                                                <input id="idelete-1" type="submit" value="delete" onclick="removeAppointment(this)" />
                                             </td>
                                         </tr>
                                     </table>
@@ -153,7 +153,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-1" type="submit" value="solve conflict" onclick="solveAppointment()" />
+                                                <input id="add-1" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>
@@ -173,7 +173,7 @@
                 <select id="cbNames-2" onchange="onChangeCbNames(this)"></select>
                 <input type="button" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
                 <label id="cbCalendars-2">Business</label>
-                <input type="button" id="update-2" value="Update" onclick="getUpdates()" />
+                <input type="button" id="update-2" value="Update" onclick="getUpdates(this)" />
             <div class="col-md-12" id="part2">
                 <div id="calendar2">
                     <table>
@@ -221,7 +221,7 @@
                                             <td>End</td>
                                             <td>
                                                 <div>
-                                                    <input type="checkbox" id="iallDay-2" onclick='handleAllDayCBClick(this)' />Allday?
+                                                    <input type="checkbox" id="iallDay-2" onclick='onAllDayClick(this)' />Allday?
                                                 </div>
                                                 <input type="datetime-local" id="iendDate-2" />
                                             </td>
@@ -248,9 +248,9 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="iadd-2" type="submit" value="add" onclick="addAppointment()" />
-                                                <input id="iedit-2" type="submit" value="edit" onclick="editAppointment()" />
-                                                <input id="idelete-2" type="submit" value="delete" onclick="removeAppointment()" />
+                                                <input id="iadd-2" type="submit" value="add" onclick="addAppointment(this)" />
+                                                <input id="iedit-2" type="submit" value="edit" onclick="editAppointment(this)" />
+                                                <input id="idelete-2" type="submit" value="delete" onclick="removeAppointment(this)" />
                                             </td>
                                         </tr>
                                     </table>
@@ -294,7 +294,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-2" type="submit" value="solve conflict" onclick="solveAppointment()" />
+                                                <input id="add-2" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>

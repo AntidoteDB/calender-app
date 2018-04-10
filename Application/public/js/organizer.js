@@ -1,4 +1,5 @@
 // this file is responsible for executing the http-requests.
+/*jshint esversion: 6 */
 
 function getCurrentDate() { // returns the current Date and Time used in comments
     var date = new Date();
@@ -30,46 +31,45 @@ function serverRequest(requestUrl, value, success) { // skeleton for performing 
 }
 
 function addNewParticipant(event) { // send addParticipant request
-    consoleAdd("send AddNewParticipant Request");
-    debugger;
-
-    let calendarId = 1; // mocking 
+    let calendarId = parseInt(event.target.id.match(/\d/)[0]);
+    consoleAdd(calendarId, "send AddNewParticipant Request");
+    let val;
 
     // if the event is triggered by key 
-    if (event.keyCode==13){
-        var val = document.getElementById(event.target.id).value;
-        if (val == ""){
-            consoleAdd("Participant name cannot be empty!");
-        }
-        else {
-            serverRequest("/api/" + calendarId +  "/addParticipant", {
-                name: val
-            }, function (json) { // "val" covers the new participant name
-                consoleAdd("addNewParticipant: " + json.result); // on success, client logs information
-                getUpdates(); // client requests new data, if request was successful
-            })
-        }
-    }
-    else { // if the event is triggered by button
-        // TODO
+    if (event.keyCode == 13) {
+        val = document.getElementById(event.target.id).value;
+    } else { // if the event is triggered by button
+        val = document.getElementById("newParticipant-" + calendarId).value;
     }
 
-    $('#newParticipant').val(""); //clear textBox, where participant was inserted
+    if (val == "") {
+        consoleAdd(calendarId, "Participant name cannot be empty!");
+    } else {
+        serverRequest("/api/" + calendarId + "/addParticipant", {
+            name: val
+        }, function (json) { // "val" covers the new participant name
+            consoleAdd(calendarId, "addNewParticipant: " + json.result); // on success, client logs information
+            getUpdates(calendarId); // client requests new data, if request was successful
+        });
+    }
+    $('#newParticipant-' + calendarId).val(""); //clear textBox, where participant was inserted
 }
 
-function removeParticipant() { // send removeParticipant request
-    consoleAdd("Remove Participant " + currentParticipant);
-    serverRequest("/api/removeParticipant", {
+function removeParticipant(calendarId) { // send removeParticipant request
+    consoleAdd(calendarId, "Remove Participant " + currentParticipant);
+    serverRequest("/api/" + calendarId + "removeParticipant", {
         participant: currentParticipant
     }, function (json) {
-        consoleAdd("removeParticipant: " + json.result);
-        getUpdates() // get updates from server, after request was successful
-    })
+        consoleAdd(calendarId, "removeParticipant: " + json.result);
+        getUpdates(calendarId); // get updates from server, after request was successful
+    });
 }
 
-function editAppointment() { // send editAppointment request. This is NOT invoked after solving conflicts
-    consoleAdd("Current ID for editing: " + currentID);
-    var newApp = getAppointmentFromForm();
+function editAppointment(dom) { // send editAppointment request. This is NOT invoked after solving conflicts
+    // TODO check this functionality
+    let calendarId = parseInt(dom.id.match(/\d/)[0]);
+    consoleAdd(calendarId, "Current ID for editing: " + currentID);
+    var newApp = getAppointmentFromForm(calendarId);
     newApp = getChanges(newApp, currentEvent);
     newApp.id = currentID; // set aId depending on the current selected appointment
     serverRequest("/api/editAppointment", {
@@ -78,99 +78,109 @@ function editAppointment() { // send editAppointment request. This is NOT invoke
         calendar: currentCalendar,
         comment: getCurrentDate() + ": edited by " + currentParticipant
     }, function (json) {
-        consoleAdd("editAppointment: " + json.result);
-        clearForm(); // clear inputForm
-        getUpdates() //request new updates
-    })
+        consoleAdd(calendarId, "editAppointment: " + json.result);
+        clearForm([calendarId]); // clear inputForm
+        getUpdates(calendarId); //request new updates
+    });
 }
 
-function removeAppointment() { // send removeAppointment request
-    consoleAdd("Current ID for deleting: " + currentID);
-    serverRequest("/api/removeAppointment", {
+function removeAppointment(dom) { // send removeAppointment request
+    // TODO check this functionality
+    let calendarId = parseInt(dom.id.match(/\d/)[0]);
+    consoleAdd(calendarId, "Current ID for deleting: " + currentID);
+    serverRequest("/api/" + calendarId + "removeAppointment", {
         id: currentID
     }, function (json) {
-        consoleAdd("removeAppointment: " + json.result);
-        clearForm();
-        getUpdates();
-    })
+        consoleAdd(calendarId, "removeAppointment: " + json.result);
+        clearForm([calendarId]);
+        getUpdates(calendarId);
+    });
 }
 
-function addAppointment() { // send addAppointment request
-    if (currentParticipant == "" || (typeof currentParticipant == "undefined") || $('#iname').val() == "") {
+function addAppointment(dom) { // send addAppointment request
+    // TODO check this functionality
+    let calendarId = parseInt(dom.id.match(/\d/)[0]);
+    if (currentParticipant == "" || (typeof currentParticipant == "undefined") || $('#iname-' + calendarId).val() == "") {
         alert("Calendar name and title should be filled out!");
         return;
     }
-    var app = getAppointmentFromForm();
+    debugger;
+    var app = getAppointmentFromForm(calendarId);
     app.comments = [getCurrentDate() + ": created by " + currentParticipant];
-    serverRequest("/api/addAppointment", {
+    serverRequest("/api/" + calendarId + "/addAppointment", {
         calendar: currentCalendar,
         appointment: app
     }, function (json) {
-        consoleAdd("addAppointment: " + json.result);
-        clearForm();
-        getUpdates();
+        consoleAdd(calendarId, "addAppointment: " + json.result);
+        clearForm([calendarId]);
+        getUpdates(calendarId);
         currentID = ""; //after an new appointment was created, set currentID to empty.
         // otherwise you could modify an "old" appointment
-    })
+    });
 }
 
-function addComment() { // send addComment request
-    var val = document.getElementById("iCommentInput").value;
-    $('#iCommentInput').val("");
+function addComment(event) { // send addComment request
+    // TODO check this functionality 
+    let calendarId = parseInt(event.target.id.match(/\d/)[0]);
+    var val = document.getElementById("iCommentInput-" + calendarId).value;
+    $('#iCommentInput-' + calendarId).val("");
     if (val == "") {
-        consoleAdd("Comment cannot be empty!");
+        consoleAdd(calendarId, "Comment cannot be empty!");
     } else {
-        consoleAdd("New Comment: " + val);
+        consoleAdd(calendarId, "New Comment: " + val);
     }
-    serverRequest("/api/addComment", {
+    serverRequest("/api/" + calendarId + "addComment", {
         id: currentID,
         comment: getCurrentDate() + ", " + currentParticipant + ": " + val
     }, function (json) {
-        consoleAdd("addComment: " + json.result);
-        getUpdates();
-    })
+        consoleAdd(calendarId, "addComment: " + json.result);
+        getUpdates(calendarId);
+    });
 }
 
-function solveAppointment() { // after the "right" value versions were selected, a editAppointment request is performed
-    consoleAdd("Solving conflict as 'editNewAppointment' with " + currentID);
-    var app = getAppointmentFromChooseForm();
+function solveAppointment(dom) { // after the "right" value versions were selected, a editAppointment request is performed
+    // TODO check this functionality
+    let calendarId = parseInt(dom.id.match(/\d/)[0]);
+    consoleAdd(calendarId, "Solving conflict as 'editNewAppointment' with " + currentID);
+    var app = getAppointmentFromChooseForm(calendarId);
     app.id = currentID; // set aId depending on the current selected appointment
-    serverRequest("/api/editAppointment", {
+    serverRequest("/api/" + calendarId + "editAppointment", {
         id: currentID,
         app: app,
         calendar: currentCalendar,
         comment: getCurrentDate() + ": conflict solved by " + currentParticipant
     }, function (json) {
-        consoleAdd("editAppointment: " + json.result);
-        clearForm(); // empty inputForm
-        getUpdates() //request Updates
-    })
+        consoleAdd(calendarId, "editAppointment: " + json.result);
+        clearForm([calendarId]); // empty inputForm
+        getUpdates(calendarId); //request Updates
+    });
     // show Inputform here as well, because this request can last some time!
-    showInput(); //  show default inputForm instead of chooseForm
-    clearForm(); // empty inputForm
+    showInput(calendarId); //  show default inputForm instead of chooseForm
+    clearForm([calendarId]); // empty inputForm
 }
 
-function getUpdates() { // request new calendar data from the server
-    let calendarId = 1; // mocking 
-    consoleAdd("update request");
-    var selectedParticipants = getSelectedParticipants();
-    serverRequest("/api/" +calendarId +  "/update", {
+function getUpdates(calendarId) { // request new calendar data from the server
+    if (typeof calendarId === "object"){
+        calendarId = parseInt(calendarId.id.match(/\d/)[0]);
+    }
+    debugger;
+    consoleAdd(calendarId, "update request");
+    var selectedParticipants = getSelectedParticipants(calendarId);
+    serverRequest("/api/" + calendarId + "/update", {
         participant: currentParticipant,
         calendar: currentCalendar
     }, function (json) {
-        setParticipants(json.participants);
-        setSelectedParticipants(selectedParticipants);
-        setEvents(json.apps);
+        debugger;
+        setParticipants(calendarId, json.participants);
+        setSelectedParticipants(calendarId, selectedParticipants);
+        debugger;
+        setEvents(calendarId, json.apps);
     });
 }
 
-function consoleAdd(text) { // add come text to the 'console'. This is useful for debugging client
-    let $consoles = $('#console-1, #console-2');
-    debugger;
-    $consoles.each(function (i, elem) {
-        debugger;
-        $(elem).val($(elem).val() + "\n" + text);
-    });
+function consoleAdd(calendarId, text) { // add come text to the 'console'. This is useful for debugging client
+    let $console = $('#console-' + calendarId);
+    $console.val($console.val() + "\n" + text);
 }
 
 
@@ -198,31 +208,26 @@ function getChanges(editedEvent, currentEvent) { //compare appointment and chang
         if (editedEvent.participants.includes(name) && !currentEvent.participants.includes(name))
             result.addedParticipants.push(name);
         if (!editedEvent.participants.includes(name) && currentEvent.participants.includes(name))
-            result.removedParticipants.push(name)
+            result.removedParticipants.push(name);
     }
     return result;
 }
 
 
-function setEvents(events) { // set events to fullCalendar.
-    let $calendars = $('#calendar-1, #calendar-2');
-
-    $calendars.each(function (i, elem) {
-        debugger;
-        $(elem).fullCalendar('removeEventSource', source);
-        source.events = [];
-        $(elem).fullCalendar('addEventSource', source);
-        for (var i = 0; i < events.length; i++) {
-            var app = events[i];
-            if ("conflict" in app) { //true: app has conflict flag and app, else only the properties
-                app.backgroundColor = "red";
-            }
-            source.events.push(events[i]);
-            if (app.id == currentID) {
-                //setComments(app.comments);
-                setEventToForm(app);
-            }
+function setEvents(calendarId, events) { // set events to fullCalendar.
+    let $calendar = $('#calendar-' + calendarId);
+    $calendar.fullCalendar('removeEventSource', source);
+    source.events = [];
+    $calendar.fullCalendar('addEventSource', source);
+    for (var i = 0; i < events.length; i++) {
+        var app = events[i];
+        if ("conflict" in app) { //true: app has conflict flag and app, else only the properties
+            app.backgroundColor = "red";
         }
-        $(elem).fullCalendar('addEventSource', source);
-    });
+        source.events.push(events[i]);
+        if (app.id == currentID) {
+            setEventToForm(calendarId, app);
+        }
+    }
+    $calendar.fullCalendar('addEventSource', source);
 }

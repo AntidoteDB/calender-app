@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 let express = require('express');
 let app = express();
 const conf = require('./config');

@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 let storage = require('./storage.js');
 
 // 'res' is the result value for sending back data to the client.
@@ -71,14 +73,12 @@ exports.getUpdates = function (calendarId, participant, calendar, res) {
             }).catch(err => {
                 console.log("GetUpdates: Participants send back to client, readAllAppointments failed", err);
                 res.send(updateObject);
-            })
+            });
         }).catch(err => {
             console.log("GetUpdates: Participants send back to client, readAllUserAppos failed", err);
             res.send(updateObject);
-        })
-    }).catch(err => console.log("Wrapper.getUpdates: failed to read Updates, readAllParticipants failed", err))
-
-
+        });
+    }).catch(err => console.log("Wrapper.getUpdates: failed to read Updates, readAllParticipants failed", err));
 };
 exports.addParticipant = function (calendarId, participant, res) { // add new participant to storage
     let result = storage.addParticipant(calendarId, participant);
@@ -96,7 +96,7 @@ exports.removeParticipant = function (calendarId, participant, res) { // remove 
         res.send({result: true});
     })
         .catch(err => {
-            console.log("wrapper: failed to delete participant " + participant, err), res.send({result: false})
+            console.log("wrapper: failed to delete participant " + participant, err), res.send({result: false});
         });
 };
 
