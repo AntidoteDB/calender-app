@@ -7,7 +7,7 @@
     <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css' />
     <link rel='stylesheet' type="text/css" href="../css/calendarLayout.css" />
     <link rel='stylesheet' type="text/css" href="../css/appStyle.css" />
-	<link rel='stylesheet' type="text/css" href="../css/appointment.css" />
+	<link rel='stylesheet' type="text/css" href="../css/appoinment.css" />
     <script type="application/javascript" src="../js/jquery-3.1.1.min.js"></script>
     <script type="application/javascript" src="../js/client.js"></script>
     <script type="application/javascript" src="../js/organizer.js"></script>
@@ -35,15 +35,14 @@
                     <input type="button" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
                     <label id="cbCalendars-1">Business</label>
                     <input type="button" id="update-1" value="Update" onclick="getUpdates(this)" />
-					<input type="button" id="Appointment-1" value="Add new appointment"/>
+					<input type="button" id="addAppointment-1" value="add  new appoinment"/>
 					
-					<div id="myModal" class="modal">
-						<div class="modal-content">
-						<span class="close">&times;</span>
-						<table>
-						 <tr>
-						  <td>
-                                <div id="appInputForm-1">
+					<!--Model pop code for calendar 1-->
+					<div id="modelPop-1" class="model">
+						<div class="model-content">
+							<span id = "close-1" class="close">&times;</span>
+							<p>Appointment properties</p>
+							<div id="appInputForm-1">
                                     <Label>Information</Label>
                                     <table>
                                         <tr>
@@ -146,16 +145,12 @@
                                         <tr>
                                             <td>
                                                 <input id="add-1" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
-												</td>
                                         </tr>
                                     </table>
                                 </div>
-								</td>
-						 <tr>
-						</table>
+						</div>
 					</div>
-
-</div>
+					<!--End of Model pop code for calendar 1-->
             <div class="col-md-12" id="part1">
                 <div id="calendar1">
                     <table>
@@ -163,8 +158,7 @@
                             <th>Calendar
                                 <div id="calInfoGlobal-1" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
-                            </th>
-                            <th>Appointment properties</th>
+                            </th>                      
                         </tr>
                         <tr>
                             <td valign="top">
@@ -173,7 +167,7 @@
 
                                 </div>
                             </td>
-                           
+                            
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
@@ -190,25 +184,14 @@
                 <input type="button" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
                 <label id="cbCalendars-2">Business</label>
                 <input type="button" id="update-2" value="Update" onclick="getUpdates(this)" />
-            <div class="col-md-12" id="part2">
-                <div id="calendar2">
-                    <table>
-                        <tr>
-                            <th>Calendar
-                                <div id="calInfoGlobal-2" hidden="hidden">
-                                    <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
-                            </th>
-                            <th>Appointment properties</th>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <div id='calendar-2'></div>
-                                <div>
-
-                                </div>
-                            </td>
-                            <td>
-                                <div id="appInputForm-2">
+				<input type="button" id="addAppointment-2" value="add  new appoinment"/>
+				
+				<!--Model pop code for calendar 1-->
+					<div id="modelPop-2" class="model">
+						<div class="model-content">
+							<span id = "close-2" class="close">&times;</span>
+							<p>Appointment properties 2</p>
+							<div id="appInputForm-2">
                                     <Label>Information</Label>
                                     <table>
                                         <tr>
@@ -293,13 +276,13 @@
                                         <tr>
                                             <td>Start</td>
                                             <td>
-                                                <select name="start-2" id="cstartDate" />
+                                                <select name="start" id="cstartDate-2" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>End</td>
                                             <td>
-                                                <select name="end-2" id="cendDate" />
+                                                <select name="end" id="cendDate-2" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -314,7 +297,27 @@
                                         </tr>
                                     </table>
                                 </div>
-                                </td>
+						</div>
+					</div>
+					<!--End of Model pop code for calendar 1-->
+            <div class="col-md-12" id="part2">
+                <div id="calendar2">
+                    <table>
+                        <tr>
+                            <th>Calendar
+                                <div id="calInfoGlobal-2" hidden="hidden">
+                                    <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
+                            </th>
+                            
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div id='calendar-2'></div>
+                                <div>
+
+                                </div>
+                            </td>
+                             
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-2" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
