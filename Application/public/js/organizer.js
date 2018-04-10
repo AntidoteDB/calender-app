@@ -57,7 +57,7 @@ function addNewParticipant(event) { // send addParticipant request
 
 function removeParticipant(calendarId) { // send removeParticipant request
     consoleAdd(calendarId, "Remove Participant " + currentParticipant);
-    serverRequest("/api/" + calendarId + "removeParticipant", {
+    serverRequest("/api/" + calendarId + "/removeParticipant", {
         participant: currentParticipant
     }, function (json) {
         consoleAdd(calendarId, "removeParticipant: " + json.result);
@@ -72,7 +72,7 @@ function editAppointment(dom) { // send editAppointment request. This is NOT inv
     var newApp = getAppointmentFromForm(calendarId);
     newApp = getChanges(newApp, currentEvent);
     newApp.id = currentID; // set aId depending on the current selected appointment
-    serverRequest("/api/editAppointment", {
+    serverRequest("/api/" + calendarId + "/editAppointment", {
         id: currentID,
         app: newApp,
         calendar: currentCalendar,
@@ -88,7 +88,7 @@ function removeAppointment(dom) { // send removeAppointment request
     // TODO check this functionality
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     consoleAdd(calendarId, "Current ID for deleting: " + currentID);
-    serverRequest("/api/" + calendarId + "removeAppointment", {
+    serverRequest("/api/" + calendarId + "/removeAppointment", {
         id: currentID
     }, function (json) {
         consoleAdd(calendarId, "removeAppointment: " + json.result);
@@ -99,12 +99,12 @@ function removeAppointment(dom) { // send removeAppointment request
 
 function addAppointment(dom) { // send addAppointment request
     // TODO check this functionality
+    debugger;
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     if (currentParticipant == "" || (typeof currentParticipant == "undefined") || $('#iname-' + calendarId).val() == "") {
         alert("Calendar name and title should be filled out!");
         return;
     }
-    debugger;
     var app = getAppointmentFromForm(calendarId);
     app.comments = [getCurrentDate() + ": created by " + currentParticipant];
     serverRequest("/api/" + calendarId + "/addAppointment", {
@@ -129,7 +129,7 @@ function addComment(event) { // send addComment request
     } else {
         consoleAdd(calendarId, "New Comment: " + val);
     }
-    serverRequest("/api/" + calendarId + "addComment", {
+    serverRequest("/api/" + calendarId + "/addComment", {
         id: currentID,
         comment: getCurrentDate() + ", " + currentParticipant + ": " + val
     }, function (json) {
@@ -144,7 +144,7 @@ function solveAppointment(dom) { // after the "right" value versions were select
     consoleAdd(calendarId, "Solving conflict as 'editNewAppointment' with " + currentID);
     var app = getAppointmentFromChooseForm(calendarId);
     app.id = currentID; // set aId depending on the current selected appointment
-    serverRequest("/api/" + calendarId + "editAppointment", {
+    serverRequest("/api/" + calendarId + "/editAppointment", {
         id: currentID,
         app: app,
         calendar: currentCalendar,
@@ -163,17 +163,14 @@ function getUpdates(calendarId) { // request new calendar data from the server
     if (typeof calendarId === "object"){
         calendarId = parseInt(calendarId.id.match(/\d/)[0]);
     }
-    debugger;
     consoleAdd(calendarId, "update request");
     var selectedParticipants = getSelectedParticipants(calendarId);
     serverRequest("/api/" + calendarId + "/update", {
         participant: currentParticipant,
         calendar: currentCalendar
     }, function (json) {
-        debugger;
         setParticipants(calendarId, json.participants);
         setSelectedParticipants(calendarId, selectedParticipants);
-        debugger;
         setEvents(calendarId, json.apps);
     });
 }

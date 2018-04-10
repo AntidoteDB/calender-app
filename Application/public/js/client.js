@@ -33,10 +33,10 @@ $(document).ready(function () {
             draggable: true,
             eventSources: [],
             eventClick: function (calEvent, jsEvent, view) {
-                eventClick(calEvent); // event, if an event (appointment in fullCalendar) is clicked
+                eventClick(i + 1, calEvent); // event, if an event (appointment in fullCalendar) is clicked
             },
             dayClick: function (date, jsEvent, view) {
-                dayClick(i+1, date); //event, if empty timeslot in fullCalendar is clicked
+                dayClick(i + 1, date); //event, if empty timeslot in fullCalendar is clicked
             }
         });
     });
@@ -64,8 +64,7 @@ function onChangeCbNames(e) { // event, if another participant was selected
     getUpdates(calendarId); //request data for the new view from the server
 }
 
-function onAllDayClick(dom){
-    debugger;
+function onAllDayClick(dom) {
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     handleAllDayCBClick(calendarId, dom);
 }
@@ -74,9 +73,9 @@ function onAllDayClick(dom){
 function handleAllDayCBClick(calendarId, cb) { //depending on the selection of 'allDay' the 'endDate' field is shown or not
     allDayChecked = cb.checked;
     if (allDayChecked)
-        document.getElementById('iendDate-'+calendarId).style.visibility = "hidden";
+        document.getElementById('iendDate-' + calendarId).style.visibility = "hidden";
     else
-        document.getElementById('iendDate-'+calendarId).style.visibility = "visible";
+        document.getElementById('iendDate-' + calendarId).style.visibility = "visible";
 }
 
 function onRemoveParticipants(dom) { // send removeParticipant-request to the server
@@ -85,15 +84,15 @@ function onRemoveParticipants(dom) { // send removeParticipant-request to the se
 }
 
 function getAppointmentFromForm(calendarId) { // read appointment from inputform
-    let name = document.getElementById('iname-'+calendarId).value;
-    let sDate = new Date(document.getElementById('istartDate-'+calendarId).value);
+    let name = document.getElementById('iname-' + calendarId).value;
+    let sDate = new Date(document.getElementById('istartDate-' + calendarId).value);
     sDate.setHours(sDate.getHours());
-    let eDate = new Date(document.getElementById('iendDate-'+calendarId).value);
+    let eDate = new Date(document.getElementById('iendDate-' + calendarId).value);
     eDate.setHours(eDate.getHours());
-    let desc = $('#desc-'+calendarId).val();
+    let desc = $('#desc-' + calendarId).val();
     let allday = isAllDayChecked();
-    let description = document.getElementById("idesc-"+calendarId).value;
-    let priority = document.getElementById("ipriority-"+calendarId).value;
+    let description = document.getElementById("idesc-" + calendarId).value;
+    let priority = document.getElementById("ipriority-" + calendarId).value;
     let res = {
         id: 0,
         title: name,
@@ -101,7 +100,7 @@ function getAppointmentFromForm(calendarId) { // read appointment from inputform
         end: eDate,
         allDay: allday,
         description: description,
-        participants: getSelectedParticipants(),
+        participants: getSelectedParticipants(calendarId),
         priority: priority
     };
     return res;
@@ -128,15 +127,15 @@ function clearForm(calendarIds) { // set all input fields to empty and shows inp
         // TODO SOLVE THE ISSUE WITH PARTICIPANT
         for (let i = 1; i <= id; i++) //deselect all patricipants
             document.getElementById("participant" + i).checked = false;
-        showInput(calendarId); 
+        showInput(calendarId);
     });
 }
 
 function setEventToForm(calendarId, ev) { //if an event(appointment) was clicked, the regarding data is set to the inputform
     // ev is a appointment JSON-structure
     currentID = ev.id;
-    document.getElementById("iallDay-"+calendarId).checked = ev.allDay;
-    handleAllDayCBClick(calendarId, document.getElementById("iallDay-"+calendarId));
+    document.getElementById("iallDay-" + calendarId).checked = ev.allDay;
+    handleAllDayCBClick(calendarId, document.getElementById("iallDay-" + calendarId));
     let start = new Date(ev.start);
     let end;
     if (ev.end == null) { // if its an allDay event, the 'end' property has to be set to a value to prevent nullpointerExpt
@@ -150,16 +149,16 @@ function setEventToForm(calendarId, ev) { //if an event(appointment) was clicked
         (start.getDate().toString().length < 2 ? "0" + (start.getDate()) : (start.getDate())) + "T" +
         ((start.getHours() - 2).toString().length < 2 ? "0" + (start.getHours() - 2) : (start.getHours() - 2)) + ":" +
         (start.getMinutes().toString().length < 2 ? "0" + start.getMinutes() : start.getMinutes());
-    document.getElementById('istartDate-'+calendarId).value = str1;
+    document.getElementById('istartDate-' + calendarId).value = str1;
     let str2 = end.getFullYear() + "-" +
         ((end.getMonth() + 1).toString().length < 2 ? "0" + (end.getMonth() + 1) : (end.getMonth() + 1)) + "-" +
         (end.getDate().toString().length < 2 ? "0" + (end.getDate()) : (end.getDate())) + "T" +
         ((end.getHours() - 2).toString().length < 2 ? "0" + (end.getHours() - 2) : (end.getHours() - 2)) + ":" +
         (end.getMinutes().toString().length < 2 ? "0" + end.getMinutes() : end.getMinutes());
-    document.getElementById('iendDate-'+calendarId).value = str2;
-    $('#iname-'+calendarId).val(ev.title);
-    $('#idesc-'+calendarId).val(ev.description);
-    $('#ipriority-'+calendarId).val(ev.priority);
+    document.getElementById('iendDate-' + calendarId).value = str2;
+    $('#iname-' + calendarId).val(ev.title);
+    $('#idesc-' + calendarId).val(ev.description);
+    $('#ipriority-' + calendarId).val(ev.priority);
     let comments = ev.comments;
     setComments(calendarId, comments); //add comments to regarding div
     setSelectedParticipants(calendarId, ev.participants); // select assigned participants
@@ -190,29 +189,28 @@ function dayClick(calendarId, date) { // if an empty time slot is clicked, add t
         end: end,
         participants: [currentParticipant]
     });
-    document.getElementById("iadd-"+calendarId).disabled = false;
+    document.getElementById("iadd-" + calendarId).disabled = false;
 }
 
-function eventClick(ev) { // if an event(appointment) is clicked, set the values to the inputform. ev is the JSON-struct
-    debugger;
-    
+function eventClick(calendarId, ev) { // if an event(appointment) is clicked, set the values to the inputform. ev is the JSON-struct    
     if ("conflict" in ev) // in case of a conflict, the event consists of ev.app and ev. conflict. Else, it covers just the properties
     {
-        showChoose(); //if a conflict is detected, change the inputform to the chooseform (with value versions)
-        setEventToChooseForm(ev.app); //and add the conflicting values to it
+        showChoose(calendarId); //if a conflict is detected, change the inputform to the chooseform (with value versions)
+        setEventToChooseForm(calendarId, ev.app); //and add the conflicting values to it
         return;
     }
-    setEventToForm(ev);
+    setEventToForm(calendarId, ev);
     currentEvent = ev;
-    document.getElementById("iadd").disabled = true;
-    document.getElementById("iedit").disabled = false;
-    document.getElementById("idelete").disabled = false;
-    document.getElementById("iCommentInput").disabled = false;
-    getUpdates(); // get new updates to check, if appointment has changed
+    document.getElementById("iadd-" + calendarId).disabled = true;
+    document.getElementById("iedit-" + calendarId).disabled = false;
+    document.getElementById("idelete-" + calendarId).disabled = false;
+    document.getElementById("iCommentInput-" + calendarId).disabled = false;
+    getUpdates(calendarId); // get new updates to check, if appointment has changed
 }
 
 function getSelectedParticipants(calendarId) { // return a list of selected participants of inputform
-    let container = $('#iSelParticipants-'+calendarId);
+    debugger;
+    let container = $('#iSelParticipants-' + calendarId);
     let inputs = container.find('input');
     let id = inputs.length;
     let names = [];
@@ -228,7 +226,7 @@ function getSelectedParticipants(calendarId) { // return a list of selected part
 function setSelectedParticipants(calendarId, participants) { // select participants in inputform, if they appear in 'participants'
     if (participants == undefined)
         return;
-    let container = $('#iSelParticipants-'+calendarId);
+    let container = $('#iSelParticipants-' + calendarId);
     let inputs = container.find('input');
     let id = inputs.length;
     for (let i = 0; i < participants.length; i++)
@@ -241,7 +239,7 @@ function setSelectedParticipants(calendarId, participants) { // select participa
 }
 
 function addCheckbox(calendarId, name) { //add new Checkbox for the given 'name' to the regarding field in the inputform
-    let container = $('#iSelParticipants-'+calendarId);
+    let container = $('#iSelParticipants-' + calendarId);
     let inputs = container.find('input');
     let id = inputs.length + 1;
     let newItem = $('<li>');
@@ -264,7 +262,7 @@ function setParticipants(calendarId, participants) { // set available participan
     let x = document.getElementById("cbNames-" + calendarId);
     $('#cbNames-' + calendarId).empty();
     x.size = 1;
-    $('#iSelParticipants-'+calendarId).empty();
+    $('#iSelParticipants-' + calendarId).empty();
     for (let i = 0; i < participants.length; i++) {
         let option1 = document.createElement("option");
         option1.text = participants[i];
@@ -292,7 +290,7 @@ function setComments(calendarId, comments) { //add comments to field in inputfor
     comments.sort(); //sort all comments to date of creation
     $('#iCommentBox-' + calendarId).empty();
     for (var i in comments) {
-        $('#iCommentBox-'+calendarId).append(
+        $('#iCommentBox-' + calendarId).append(
             $('<li></li>').append(
                 $('<span>').text(comments[i]))
         );
@@ -300,8 +298,8 @@ function setComments(calendarId, comments) { //add comments to field in inputfor
 }
 
 function showInput(calendarId) { //show inputform (for appointment)
-    let input = $('#appInputForm-'+calendarId);
-    let choose = $('#appChooseForm-'+calendarId);
+    let input = $('#appInputForm-' + calendarId);
+    let choose = $('#appChooseForm-' + calendarId);
     choose.hide();
     input.show();
 }
@@ -314,23 +312,23 @@ function showChoose(calendarId) { //show chooseForm (for conflicting values in a
 }
 
 function enableInput(calendarId) { //enable inputform in 'no global' calendar
-    $("#appInputForm-"+calendarId).removeClass("disabledbutton");
+    $("#appInputForm-" + calendarId).removeClass("disabledbutton");
 }
 
 function disableInput(calendarId) { // disable inputform by 'global' calendar => readonly
-    $("#appInputForm-"+calendarId).addClass("disabledbutton");
+    $("#appInputForm-" + calendarId).addClass("disabledbutton");
 }
 
 function getAppointmentFromChooseForm(calendarId) { // get the solved conflict appointment from chooseForm
     let name = document.getElementById('cname-' + calendarId).value;
-    let x = document.getElementById("cstartDate-"+calendarId).value;
-    let sDate = new Date(document.getElementById('cstartDate-'+calendarId).value);
+    let x = document.getElementById("cstartDate-" + calendarId).value;
+    let sDate = new Date(document.getElementById('cstartDate-' + calendarId).value);
     sDate.setHours(sDate.getHours());
-    let eDate = new Date(document.getElementById('cendDate-'+calendarId).value);
+    let eDate = new Date(document.getElementById('cendDate-' + calendarId).value);
     eDate.setHours(eDate.getHours());
-    let allday = document.getElementById("cendDate-"+calendarId).value == "true" ? true : false;
-    let description = document.getElementById("cdesc-"+calendarId).value;
-    let priority = document.getElementById("cpriority-"+calendarId).value;
+    let allday = document.getElementById("cendDate-" + calendarId).value == "true" ? true : false;
+    let description = document.getElementById("cdesc-" + calendarId).value;
+    let priority = document.getElementById("cpriority-" + calendarId).value;
     let res = {
         id: 0,
         title: name,
@@ -344,33 +342,32 @@ function getAppointmentFromChooseForm(calendarId) { // get the solved conflict a
     return res;
 }
 
-function setEventToChooseForm(ev) { // set conflicting appointment to chooseForm (comboBoxes)
-    debugger;
+function setEventToChooseForm(calendarId, ev) { // set conflicting appointment to chooseForm (comboBoxes)
     currentID = ev.id[0];
-    $('#cname').empty();
-    let x = document.getElementById("cname");
+    $('#cname-'+calendarId).empty();
+    let x = document.getElementById("cname-"+calendarId);
     for (let i = 0; i < ev.title.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.title[i];
         x.add(option1);
     }
-    $('#cdesc').empty();
-    x = document.getElementById("cdesc");
+    $('#cdesc-'+calendarId).empty();
+    x = document.getElementById("cdesc-"+calendarId);
     for (let i = 0; i < ev.description.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.description[i];
         x.add(option1);
     }
-    $('#cpriority').empty();
-    x = document.getElementById("cpriority");
+    $('#cpriority-'+calendarId).empty();
+    x = document.getElementById("cpriority-"+calendarId);
     for (let i = 0; i < ev.priority.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.priority[i];
         x.add(option1);
     }
-    $('#cstartDate').empty();
-    x = document.getElementById('cstartDate');
-    let y = document.getElementById('cendDate');
+    $('#cstartDate-'+calendarId).empty();
+    x = document.getElementById('cstartDate-'+calendarId);
+    let y = document.getElementById('cendDate-'+calendarId);
     for (let i = 0; i < ev.start.length; i++) {
         let start = new Date(ev.start[i]);
         let str1 = start.getFullYear() + "-" +
@@ -382,7 +379,7 @@ function setEventToChooseForm(ev) { // set conflicting appointment to chooseForm
         option1.text = str1;
         x.add(option1);
     }
-    $('#cendDate').empty();
+    $('#cendDate-'+calendarId).empty();
 
     for (let i = 0; i < ev.end.length; i++) {
         let end = new Date(ev.end[i]);
@@ -393,14 +390,14 @@ function setEventToChooseForm(ev) { // set conflicting appointment to chooseForm
             (end.getMinutes().toString().length < 2 ? "0" + end.getMinutes() : end.getMinutes());
         let option1 = document.createElement("option");
         option1.text = str2;
-        if (document.getElementById('cendDate') != null)
+        if (document.getElementById('cendDate-'+calendarId) != null)
             y.add(option1);
     }
     for (let i = 0; i < ev.allDay.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.allDay[i];
         if (option1.text == "true")
-            if (document.getElementById('cendDate') != null)
+            if (document.getElementById('cendDate-'+calendarId) != null)
                 y.add(option1);
     }
 }
