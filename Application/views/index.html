@@ -7,11 +7,13 @@
     <link rel='stylesheet' type="text/css" href='../css/fullcalendar.css' />
     <link rel='stylesheet' type="text/css" href="../css/calendarLayout.css" />
     <link rel='stylesheet' type="text/css" href="../css/appStyle.css" />
+	<link rel='stylesheet' type="text/css" href="../css/appointment.css" />
     <script type="application/javascript" src="../js/jquery-3.1.1.min.js"></script>
     <script type="application/javascript" src="../js/client.js"></script>
     <script type="application/javascript" src="../js/organizer.js"></script>
     <script type="application/javascript" src='../js/moment.min.js'></script>
     <script type="application/javascript" src='../js/fullcalendar.js'></script>
+	<script type="application/javascript" src='../js/appoinmentPopup.js'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
     <!-- <script>
         setInterval(getUpdates, 10000); Timer is disabled since it is very annoying...
@@ -33,24 +35,14 @@
                     <input type="button" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
                     <label id="cbCalendars-1">Business</label>
                     <input type="button" id="update-1" value="Update" onclick="getUpdates(this)" />
-            <div class="col-md-12" id="part1">
-                <div id="calendar1">
-                    <table>
-                        <tr>
-                            <th>Calendar
-                                <div id="calInfoGlobal-1" hidden="hidden">
-                                    <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
-                            </th>
-                            <th>Appointment properties</th>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                <div id='calendar-1'></div>
-                                <div>
-
-                                </div>
-                            </td>
-                            <td>
+					<input type="button" id="Appointment-1" value="Add new appointment"/>
+					
+					<div id="myModal" class="modal">
+						<div class="modal-content">
+						<span class="close">&times;</span>
+						<table>
+						 <tr>
+						  <td>
                                 <div id="appInputForm-1">
                                     <Label>Information</Label>
                                     <table>
@@ -154,10 +146,34 @@
                                         <tr>
                                             <td>
                                                 <input id="add-1" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
+												</td>
                                         </tr>
                                     </table>
                                 </div>
-                                </td>
+								</td>
+						 <tr>
+						</table>
+					</div>
+
+</div>
+            <div class="col-md-12" id="part1">
+                <div id="calendar1">
+                    <table>
+                        <tr>
+                            <th>Calendar
+                                <div id="calInfoGlobal-1" hidden="hidden">
+                                    <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
+                            </th>
+                            <th>Appointment properties</th>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <div id='calendar-1'></div>
+                                <div>
+
+                                </div>
+                            </td>
+                           
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
