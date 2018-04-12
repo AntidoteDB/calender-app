@@ -1,37 +1,22 @@
-
-var model = "";
 $(document).ready(function(){
-model = document.getElementById('modelPop-1');
- 
-var span = document.getElementById("close-1");
-
-span.onclick = function() {
-    model.style.display = "none";
-}
-
+	let $spans = $('#close-1, #close-2');	
+	
+	$spans.each(function (i, elem){
+		$(elem).on('click', function(){
+			let $popups = $('#modelPop-1, #modelPop-2');	
+			
+			$popups.each(function (i, elem) {		
+				$(elem).css('display','none');
+		});
+    });
+		});
 });
 
-
-function openModel_1()
+function openModel(calendarId)
 {
-	model.style.display = "block";
-}
-
-var model2 = "";
-$(document).ready(function(){
-model2 = document.getElementById('modelPop-2');
- 
-
-var span2 = document.getElementById("close-2");
-
-span2.onclick = function() {
-    model2.style.display = "none";
-}
-
-});
-
- 
- function openModel_2()
-{
-	model2.style.display = "block";
+	    if (typeof calendarId === "object"){
+        calendarId = parseInt(calendarId.id.match(/\d/)[0]);
+    }
+		model = document.getElementById('modelPop-'+calendarId);
+		model.style.display = "block";
 }

@@ -32,10 +32,10 @@
         <div class="col-md-6">
                     Your Name:
                     <select id="cbNames-1" onchange="onChangeCbNames(this)"></select>
-                    <input type="button" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
+                    <input type="button" class="btn btn-primary" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
                     <label id="cbCalendars-1">Business</label>
-                    <input type="button" id="update-1" value="Update" onclick="getUpdates(this)" />
-					<input type="button" id="addAppointment-1" value="new appoinment" onclick="openModel_1(this)"/>
+                    <input type="button" class="btn btn-primary" id="update-1" value="Update" onclick="getUpdates(this)" />
+					<input type="button" class="btn btn-primary" id="addAppointment-1" value="new appoinment" onclick="openModel(this)"/>
 					
 					<!--Model pop code for calendar 1-->
 					<div id="modelPop-1" class="model">
@@ -97,9 +97,9 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="iadd-1" type="submit" value="add" onclick="addAppointment(this)" />
-                                                <input id="iedit-1" type="submit" value="edit" onclick="editAppointment(this)" />
-                                                <input id="idelete-1" type="submit" value="delete" onclick="removeAppointment(this)" />
+                                                <input id="iadd-1" class="btn btn-primary" type="submit" value="add" onclick="addAppointment(this)" />
+                                                <input id="iedit-1" class="btn btn-primary" type="submit" value="edit" onclick="editAppointment(this)" />
+                                                <input id="idelete-1" class="btn btn-primary" type="submit" value="delete" onclick="removeAppointment(this)" />
                                             </td>
                                         </tr>
                                     </table>
@@ -143,7 +143,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-1" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
+                                                <input id="add-1" class="btn btn-primary" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>
@@ -155,7 +155,7 @@
                 <div id="calendar1">
                     <table>
                         <tr>
-                            <th>Calendar
+                            <th>Calendar 1
                                 <div id="calInfoGlobal-1" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
                             </th>
@@ -173,7 +173,7 @@
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
-                    <input type="button" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
+                    <input type="button" class="btn btn-primary" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
                 </div>
             </div>
             <div class="col-md-12">
@@ -183,10 +183,10 @@
         <div class="col-md-6">
                 Your Name:
                 <select id="cbNames-2" onchange="onChangeCbNames(this)"></select>
-                <input type="button" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
+                <input type="button" class="btn btn-primary" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
                 <label id="cbCalendars-2">Business</label>
-                <input type="button" id="update-2" value="Update" onclick="getUpdates(this)" />
-				<input type="button" id="addAppointment-2" value="new appoinment" onclick="openModel_2(this)"/>
+                <input type="button" class="btn btn-primary" id="update-2" value="Update" onclick="getUpdates(this)" />
+				<input type="button" class="btn btn-primary" id="addAppointment-2" value="new appoinment" onclick="openModel(this)"/>
 				
 				<!--Model pop code for calendar 2-->
 					<div id="modelPop-2" class="model">
@@ -248,9 +248,9 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="iadd-2" type="submit" value="add" onclick="addAppointment(this)" />
-                                                <input id="iedit-2" type="submit" value="edit" onclick="editAppointment(this)" />
-                                                <input id="idelete-2" type="submit" value="delete" onclick="removeAppointment(this)" />
+                                                <input id="iadd-2" class="btn btn-primary" type="submit" value="add" onclick="addAppointment(this)" />
+                                                <input id="iedit-2" class="btn btn-primary" type="submit" value="edit" onclick="editAppointment(this)" />
+                                                <input id="idelete-2" class="btn btn-primary" type="submit" value="delete" onclick="removeAppointment(this)" />
                                             </td>
                                         </tr>
                                     </table>
@@ -294,7 +294,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-2" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
+                                                <input id="add-2" class="btn btn-primary" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>
@@ -306,7 +306,7 @@
                 <div id="calendar2">
                     <table>
                         <tr>
-                            <th>Calendar
+                            <th>Calendar 2
                                 <div id="calInfoGlobal-2" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
                             </th>
@@ -321,7 +321,7 @@
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-2" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
-                    <input type="button" id="btnNewParticipant-2" value="add new participant" onclick="addNewParticipant(event)" />
+                    <input type="button" class="btn btn-primary" id="btnNewParticipant-2" value="add new participant" onclick="addNewParticipant(event)" />
                 </div>
             </div>
             <div class="col-md-12">
