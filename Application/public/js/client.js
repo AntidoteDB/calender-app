@@ -101,7 +101,7 @@ function getAppointmentFromForm(calendarId) { // read appointment from inputform
         end: eDate,
         allDay: allday,
         description: description,
-        participants: getSelectedParticipants(),
+        participants: getSelectedParticipants(calendarId),
         priority: priority
     };
     return res;
