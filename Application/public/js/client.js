@@ -189,6 +189,7 @@ function dayClick(calendarId, date) { // if an empty time slot is clicked, add t
         end: end,
         participants: [currentParticipant]
     });
+    openModel(calendarId);
     document.getElementById("iadd-" + calendarId).disabled = false;
 }
 
@@ -206,6 +207,7 @@ function eventClick(calendarId, ev) { // if an event(appointment) is clicked, se
     document.getElementById("idelete-" + calendarId).disabled = false;
     document.getElementById("iCommentInput-" + calendarId).disabled = false;
     getUpdates(calendarId); // get new updates to check, if appointment has changed
+    openModel(calendarId);
 }
 
 function getSelectedParticipants(calendarId) { // return a list of selected participants of inputform
