@@ -28,22 +28,21 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
+    <div class="container-full row">
+        <div class="col-md-6">
                     Your Name:
                     <select id="cbNames-1" onchange="onChangeCbNames(this)"></select>
                     <input type="button" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
                     <label id="cbCalendars-1">Business</label>
                     <input type="button" id="update-1" value="Update" onclick="getUpdates(this)" />
-					<input type="button" id="addAppointment-1" value="add  new appoinment"/>
+					<input type="button" id="addAppointment-1" value="new appoinment" onclick="openModel_1(this)"/>
 					
 					<!--Model pop code for calendar 1-->
 					<div id="modelPop-1" class="model">
 						<div class="model-content">
 							<span id = "close-1" class="close">&times;</span>
-							<p>Appointment properties</p>
 							<div id="appInputForm-1">
-                                    <Label>Information</Label>
+                                    <Label>Appointment properties 1</Label>
                                     <table>
                                         <tr>
                                             <th>Description</th>
@@ -151,14 +150,15 @@
 						</div>
 					</div>
 					<!--End of Model pop code for calendar 1-->
-            <div class="col-md-12" id="part1">
+					
+            <div id="part1">
                 <div id="calendar1">
                     <table>
                         <tr>
                             <th>Calendar
                                 <div id="calInfoGlobal-1" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
-                            </th>                      
+                            </th>
                         </tr>
                         <tr>
                             <td valign="top">
@@ -168,6 +168,8 @@
                                 </div>
                             </td>
                             
+                               
+                        
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
@@ -178,21 +180,20 @@
                 <textarea rows="20" cols="100" id="console-1"></textarea>
             </div>
         </div>
-        <div class="row">
+        <div class="col-md-6">
                 Your Name:
                 <select id="cbNames-2" onchange="onChangeCbNames(this)"></select>
                 <input type="button" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
                 <label id="cbCalendars-2">Business</label>
                 <input type="button" id="update-2" value="Update" onclick="getUpdates(this)" />
-				<input type="button" id="addAppointment-2" value="add  new appoinment"/>
+				<input type="button" id="addAppointment-2" value="new appoinment" onclick="openModel_2(this)"/>
 				
-				<!--Model pop code for calendar 1-->
+				<!--Model pop code for calendar 2-->
 					<div id="modelPop-2" class="model">
 						<div class="model-content">
 							<span id = "close-2" class="close">&times;</span>
 							<p>Appointment properties 2</p>
 							<div id="appInputForm-2">
-                                    <Label>Information</Label>
                                     <table>
                                         <tr>
                                             <th>Description</th>
@@ -299,8 +300,9 @@
                                 </div>
 						</div>
 					</div>
-					<!--End of Model pop code for calendar 1-->
-            <div class="col-md-12" id="part2">
+					<!--End of Model pop code for calendar 2-->
+					
+            <div style="margin-left:20px" id="part2">
                 <div id="calendar2">
                     <table>
                         <tr>
@@ -308,7 +310,6 @@
                                 <div id="calInfoGlobal-2" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
                             </th>
-                            
                         </tr>
                         <tr>
                             <td valign="top">
@@ -316,8 +317,7 @@
                                 <div>
 
                                 </div>
-                            </td>
-                             
+                            </td>     
                         </tr>
                     </table>
                     <input type="text" id="newParticipant-2" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />

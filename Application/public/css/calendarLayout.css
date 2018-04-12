@@ -1,3 +1,8 @@
 #calendar-1, #calendar-2 {
-    width: 810px;
+    width: 620px;
+}
+
+.container-full {
+  margin: 0 auto;
+  width: 100%;
 }
