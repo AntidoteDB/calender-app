@@ -1,8 +1,15 @@
 #calendar-1, #calendar-2 {
-    width: 620px;
+    width: 640px;
 }
 
 .container-full {
-  margin: 0 auto;
+  margin-left: 100px auto;
   width: 100%;
 }
+
+th {
+    background-color: #20A1C1;
+    color: white;
+	font-weight: bold;
+} 
+ 

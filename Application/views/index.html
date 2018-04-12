@@ -18,32 +18,35 @@
     <!-- <script>
         setInterval(getUpdates, 10000); Timer is disabled since it is very annoying...
     </script>-->
-    <style>
+    <!-- <style>
         table,
         td,
         th {
             border: 1px solid black;
         }
-    </style>
+    </style>-->
+	
+	
 </head>
 
 <body>
-    <div class="container-full row">
+    <div class="container-full row" style="margin-left:10px;">
         <div class="col-md-6">
                     Your Name:
                     <select id="cbNames-1" onchange="onChangeCbNames(this)"></select>
-                    <input type="button" class="btn btn-primary" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
-                    <label id="cbCalendars-1">Business</label>
-                    <input type="button" class="btn btn-primary" id="update-1" value="Update" onclick="getUpdates(this)" />
-					<input type="button" class="btn btn-primary" id="addAppointment-1" value="new appoinment" onclick="openModel(this)"/>
+                    <input type="button" class="btn btn-info" id="removeParticipant-1" value="remParti" onclick="onRemoveParticipants(this)" /> Calendar View:
+                    <label class="text-success" id="cbCalendars-1">Business</label>
+                    <input type="button" class="btn btn-info" id="update-1" value="Update" onclick="getUpdates(this)" />
+					<input type="button" class="btn btn-info" id="addAppointment-1" value="new appoinment" onclick="openModel(this)"/>
 					
 					<!--Model pop code for calendar 1-->
 					<div id="modelPop-1" class="model">
 						<div class="model-content">
 							<span id = "close-1" class="close">&times;</span>
+							<span class="label label-info">Appointment properties 1</span>
 							<div id="appInputForm-1">
-                                    <Label>Appointment properties 1</Label>
-                                    <table>
+                                    
+                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <th>Description</th>
                                             <th>Value</th>
@@ -51,13 +54,13 @@
                                         <tr>
                                             <td>Title</td>
                                             <td>
-                                                <input id="iname-1" type="text" placeholder="Titel" />
+                                                <input id="iname-1" class="form-control" type="text" placeholder="Titel" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Description</td>
                                             <td>
-                                                <input id="idesc-1" type="text" placeholder="desc..." />
+                                                <input id="idesc-1" class="form-control" type="text" placeholder="desc..." />
                                             </td>
                                         </tr>
                                         <tr>
@@ -91,22 +94,22 @@
                                             <td>Comments and Changelog</ul>
                                             </td>
                                             <td>
-                                                <input type="text" id="iCommentInput-1" placeholder="insert comment here" onKeyPress="onEnterComment(event)" />
+                                                <input type="text"  class="form-control" id="iCommentInput-1" placeholder="insert comment here" onKeyPress="onEnterComment(event)" />
                                                 <ul id="iCommentBox-1" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="iadd-1" class="btn btn-primary" type="submit" value="add" onclick="addAppointment(this)" />
-                                                <input id="iedit-1" class="btn btn-primary" type="submit" value="edit" onclick="editAppointment(this)" />
-                                                <input id="idelete-1" class="btn btn-primary" type="submit" value="delete" onclick="removeAppointment(this)" />
+                                                <input id="iadd-1" class="btn btn-info" type="submit" value="add" onclick="addAppointment(this)" />
+                                                <input id="iedit-1" class="btn btn-info" type="submit" value="edit" onclick="editAppointment(this)" />
+                                                <input id="idelete-1" class="btn btn-info" type="submit" value="delete" onclick="removeAppointment(this)" />
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div id="appChooseForm-1" hidden="hidden">
                                     <Label>Please solve conflict by choosing between values</Label>
-                                    <table>
+                                    <table  class="table table-bordered table-striped">
                                         <tr>
                                             <th>Description</th>
                                             <th>Value</th>
@@ -114,13 +117,13 @@
                                         <tr>
                                             <td>Title</td>
                                             <td>
-                                                <select id="cname-1" type="text" />
+                                                <select id="cname-1"  class="form-control" type="text" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Description</td>
                                             <td>
-                                                <select id="cdesc-1" type="text" placeholder="desc..." />
+                                                <select id="cdesc-1"  class="form-control" type="text" placeholder="desc..." />
                                             </td>
                                         </tr>
                                         <tr>
@@ -143,7 +146,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-1" class="btn btn-primary" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
+                                                <input id="add-1" class="btn btn-btn-info btn-sm" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>
@@ -153,9 +156,10 @@
 					
             <div id="part1">
                 <div id="calendar1">
-                    <table>
+				<hr>
+                    <table class="table-bordered">
                         <tr>
-                            <th>Calendar 1
+                            <th><span>Calendar 1</span>
                                 <div id="calInfoGlobal-1" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
                             </th>
@@ -172,9 +176,15 @@
                         
                         </tr>
                     </table>
-                    <input type="text" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
-                    <input type="button" class="btn btn-primary" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
-                </div>
+					 
+					
+					<div class="input-group">
+						<input type="text" class="form-control" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
+						<span class="input-group-btn">
+							<input type="button" class="btn btn-info" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
+						</span>
+                    </div>    			
+			   </div>
             </div>
             <div class="col-md-12">
                 <textarea rows="20" cols="100" id="console-1"></textarea>
@@ -183,18 +193,18 @@
         <div class="col-md-6">
                 Your Name:
                 <select id="cbNames-2" onchange="onChangeCbNames(this)"></select>
-                <input type="button" class="btn btn-primary" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
-                <label id="cbCalendars-2">Business</label>
-                <input type="button" class="btn btn-primary" id="update-2" value="Update" onclick="getUpdates(this)" />
-				<input type="button" class="btn btn-primary" id="addAppointment-2" value="new appoinment" onclick="openModel(this)"/>
+                <input type="button" class="btn btn-info" id="removeParticipant-2" value="remParti" onclick="onRemoveParticipants()" /> Calendar View:
+                <label class="text-success" id="cbCalendars-2">Business</label>
+                <input type="button" class="btn btn-info" id="update-2" value="Update" onclick="getUpdates(this)" />
+				<input type="button" class="btn btn-info" id="addAppointment-2" value="new appoinment" onclick="openModel(this)"/>
 				
 				<!--Model pop code for calendar 2-->
 					<div id="modelPop-2" class="model">
 						<div class="model-content">
 							<span id = "close-2" class="close">&times;</span>
-							<p>Appointment properties 2</p>
+							<span class="label label-info">Appointment properties 2</span>
 							<div id="appInputForm-2">
-                                    <table>
+                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <th>Description</th>
                                             <th>Value</th>
@@ -202,13 +212,13 @@
                                         <tr>
                                             <td>Title</td>
                                             <td>
-                                                <input id="iname-2" type="text" placeholder="Titel" />
+                                                <input id="iname-2"  class="form-control" type="text" placeholder="Titel" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Description</td>
                                             <td>
-                                                <input id="idesc-2" type="text" placeholder="desc..." />
+                                                <input id="idesc-2"  class="form-control" type="text" placeholder="desc..." />
                                             </td>
                                         </tr>
                                         <tr>
@@ -242,22 +252,22 @@
                                             <td>Comments and Changelog</ul>
                                             </td>
                                             <td>
-                                                <input type="text" id="iCommentInput-2" placeholder="insert comment here" onKeyPress="onEnterComment(event)" />
+                                                <input type="text"  class="form-control" id="iCommentInput-2" placeholder="insert comment here" onKeyPress="onEnterComment(event)" />
                                                 <ul id="iCommentBox-2" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="iadd-2" class="btn btn-primary" type="submit" value="add" onclick="addAppointment(this)" />
-                                                <input id="iedit-2" class="btn btn-primary" type="submit" value="edit" onclick="editAppointment(this)" />
-                                                <input id="idelete-2" class="btn btn-primary" type="submit" value="delete" onclick="removeAppointment(this)" />
+                                                <input id="iadd-2" class="btn btn-info" type="submit" value="add" onclick="addAppointment(this)" />
+                                                <input id="iedit-2" class="btn btn-info" type="submit" value="edit" onclick="editAppointment(this)" />
+                                                <input id="idelete-2" class="btn btn-info" type="submit" value="delete" onclick="removeAppointment(this)" />
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div id="appChooseForm-2" hidden="hidden">
                                     <Label>Please solve conflict by choosing between values</Label>
-                                    <table>
+                                    <table class="table table-bordered table-striped">
                                         <tr>
                                             <th>Description</th>
                                             <th>Value</th>
@@ -265,13 +275,13 @@
                                         <tr>
                                             <td>Title</td>
                                             <td>
-                                                <select id="cname-2" type="text" />
+                                                <select id="cname-2"  class="form-control" type="text" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Description</td>
                                             <td>
-                                                <select id="cdesc-2" type="text" placeholder="desc..." />
+                                                <select id="cdesc-2"  class="form-control" type="text" placeholder="desc..." />
                                             </td>
                                         </tr>
                                         <tr>
@@ -294,7 +304,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-2" class="btn btn-primary" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
+                                                <input id="add-2" class="btn btn-info" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>
@@ -302,11 +312,12 @@
 					</div>
 					<!--End of Model pop code for calendar 2-->
 					
-            <div style="margin-left:20px" id="part2">
+            <div id="part2">
                 <div id="calendar2">
-                    <table>
+				<hr>
+                    <table class="table-bordered">
                         <tr>
-                            <th>Calendar 2
+                            <th><span>Calendar 2</span>
                                 <div id="calInfoGlobal-2" hidden="hidden">
                                     <label class="bluetext">: Business</label>. Changes are disabled for global calendars</div>
                             </th>
@@ -320,8 +331,12 @@
                             </td>     
                         </tr>
                     </table>
-                    <input type="text" id="newParticipant-2" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
-                    <input type="button" class="btn btn-primary" id="btnNewParticipant-2" value="add new participant" onclick="addNewParticipant(event)" />
+					<div class="input-group">
+						<input type="text" class="form-control" id="newParticipant-2" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
+						<span class="input-group-btn">
+							<input type="button" class="btn btn-info" id="btnNewParticipant-2" value="add new participant" onclick="addNewParticipant(event)" />
+						<span>
+					</div>
                 </div>
             </div>
             <div class="col-md-12">
