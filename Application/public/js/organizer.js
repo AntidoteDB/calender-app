@@ -213,7 +213,7 @@ function getChanges(editedEvent, currentEvent) { //compare appointment and chang
 
 function setEvents(calendarId, events) { // set events to fullCalendar.
     let $calendar = $('#calendar-' + calendarId);
-    $calendar.fullCalendar('removeEventSource', source);
+    $calendar.fullCalendar('removeEventSources');
     source.events = [];
     $calendar.fullCalendar('addEventSource', source);
     for (var i = 0; i < events.length; i++) {
