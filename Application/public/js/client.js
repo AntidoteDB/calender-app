@@ -84,6 +84,7 @@ function onRemoveParticipants(dom) { // send removeParticipant-request to the se
 }
 
 function getAppointmentFromForm(calendarId) { // read appointment from inputform
+    debugger;
     let name = document.getElementById('iname-' + calendarId).value;
     let sDate = new Date(document.getElementById('istartDate-' + calendarId).value);
     sDate.setHours(sDate.getHours());
@@ -212,15 +213,15 @@ function eventClick(calendarId, ev) { // if an event(appointment) is clicked, se
 
 function getSelectedParticipants(calendarId) { // return a list of selected participants of inputform
     debugger;
-    let container = $('#iSelParticipants-' + calendarId);
-    let inputs = container.find('input');
+    let $container = $('#iSelParticipants-' + calendarId);
+    let inputs = $container.find('input');
     let id = inputs.length;
     let names = [];
     // TODO SOLVE THE ISSUE WITH PARTICIPANTS
     for (let i = 1; i <= id; i++) {
-        let x = document.getElementById("participant" + i);
-        if (x.checked)
-            names.push(x.value);
+        let $x = $container.find('#participant'+i);
+        if ($x[0].checked)
+            names.push($x[0].value);
     }
     return names;
 }
