@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 $(document).ready(function(){
 	let $spans = $('#close-1, #close-2');	
 	
