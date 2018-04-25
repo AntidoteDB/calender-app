@@ -67,6 +67,7 @@ function removeParticipant(calendarId) { // send removeParticipant request
 
 function editAppointment(dom) { // send editAppointment request. This is NOT invoked after solving conflicts
     // TODO check this functionality
+    debugger;
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     consoleAdd(calendarId, "Current ID for editing: " + currentID);
     var newApp = getAppointmentFromForm(calendarId);
