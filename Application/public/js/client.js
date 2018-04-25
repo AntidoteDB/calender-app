@@ -403,3 +403,4 @@ function setEventToChooseForm(calendarId, ev) { // set conflicting appointment t
                 y.add(option1);
     }
 }
+

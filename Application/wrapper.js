@@ -5,6 +5,29 @@ let storage = require('./storage.js');
 // 'res' is the result value for sending back data to the client.
 // the view is defined by parameters 'participant' and 'calendar'
 
+exports.disconnectSyncronization = function () {
+    let result = storage.call_DisconnectNetwork();
+    result.then(_ => {
+        res.send({result: true});
+    }) // if operation was successful, a true flag is sent to the client
+        .catch(err => {
+            console.log("Failed to disconnect interdc network", err);
+            res.send({result: false});
+        });
+};
+
+exports.connectSyncronization = function () {
+    let result = storage.call_ConnectNetwork();
+    result.then(_ => {
+        res.send({result: true});
+    }) // if operation was successful, a true flag is sent to the client
+        .catch(err => {
+            console.log("Failed to disconnect interdc network", err);
+            res.send({result: false});
+        });
+};
+
+
 exports.addAppointment = function (calendarId, calendar, app, res) {
     let result = storage.writeNewAppointment(calendarId, calendar, app); //write new appointment to storage
     result.then(_ => {

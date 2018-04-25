@@ -59,6 +59,16 @@
         let value = req.body;
         wrapper.getUpdates(calendarId, value.participant, value.calendar, res);
     });
+	
+	apiRouter.post("/:calendar_id/disconnectNetwork", function (req, res) {
+        console.log("Passing to wrapper");
+        wrapper.disconnectSyncronization();
+    });
+	
+	apiRouter.post("/:calendar_id/connectNetwork", function (req, res) {
+        console.log("Passing to wrapper");
+        wrapper.connectSyncronization();
+    });
 
     apiRouter.post("/:calendar_id/addAppointment", function (req, res) {
         let calendarId = req.params.calendar_id;
