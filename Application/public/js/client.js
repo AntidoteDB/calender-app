@@ -122,12 +122,11 @@ function clearForm(calendarIds) { // set all input fields to empty and shows inp
         document.getElementById("idelete-" + calendarId).disabled = true;
         document.getElementById("iadd-" + calendarId).disabled = true;
         document.getElementById("iCommentInput-" + calendarId).disabled = true;
-        let container = $('#iSelParticipants-' + calendarId);
-        let inputs = container.find('input');
+        let $container = $('#iSelParticipants-' + calendarId);
+        let inputs = $container.find('input');
         let id = inputs.length;
-        // TODO SOLVE THE ISSUE WITH PARTICIPANT
         for (let i = 1; i <= id; i++) //deselect all patricipants
-            document.getElementById("participant" + i).checked = false;
+            $container.find('#participant'+i)[0].checked = false;
         showInput(calendarId);
     });
 }
@@ -217,7 +216,6 @@ function getSelectedParticipants(calendarId) { // return a list of selected part
     let inputs = $container.find('input');
     let id = inputs.length;
     let names = [];
-    // TODO SOLVE THE ISSUE WITH PARTICIPANTS
     for (let i = 1; i <= id; i++) {
         let $x = $container.find('#participant'+i);
         if ($x[0].checked)
@@ -229,15 +227,14 @@ function getSelectedParticipants(calendarId) { // return a list of selected part
 function setSelectedParticipants(calendarId, participants) { // select participants in inputform, if they appear in 'participants'
     if (participants == undefined)
         return;
-    let container = $('#iSelParticipants-' + calendarId);
-    let inputs = container.find('input');
+    let $container = $('#iSelParticipants-' + calendarId);
+    let inputs = $container.find('input');
     let id = inputs.length;
     for (let i = 0; i < participants.length; i++)
-        // TODO SOLVE THE ISSUE WITH PARTICIPANTS
         for (let j = 1; j <= id; j++) {
-            let x = document.getElementById("participant" + j);
-            if (x.value == participants[i])
-                x.checked = true;
+            let $x = $container.find('#participant'+j);
+            if ($x[0].value == participants[i])
+                $x[0].checked = true;
         }
 }
 
