@@ -194,8 +194,10 @@ function dayClick(calendarId, date) { // if an empty time slot is clicked, add t
 }
 
 function eventClick(calendarId, ev) { // if an event(appointment) is clicked, set the values to the inputform. ev is the JSON-struct    
+
     if ("conflict" in ev) // in case of a conflict, the event consists of ev.app and ev. conflict. Else, it covers just the properties
     {
+        openModel(calendarId);
         showChoose(calendarId); //if a conflict is detected, change the inputform to the chooseform (with value versions)
         setEventToChooseForm(calendarId, ev.app); //and add the conflicting values to it
         return;
