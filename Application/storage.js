@@ -5,6 +5,11 @@ let app = express();
 const conf = require('./config');
 let	antidoteClient = require('antidote_ts_client');
 
+
+//Requies for executing cmd
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
 // Initialize Antidote clients
 var atdClis = [];
 var userSets = [];
@@ -19,7 +24,28 @@ for (var i in atdClis){
     userSets.push(atdClis[i].set("users")); // Set of available participants
     appMaps.push(atdClis[i].map("appointments")); // AppMap, Map of Map of Appointmens
 }
+ 
 
+async function call_DisconnectNetwork() {
+  const { stdout, stderr } = await exec('docker network disconnect application_interdc application_antidote1_1');
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
+}
+
+
+async function call_ConnectNetwork() {
+  const { stdout, stderr } = await exec('docker network connect application_interdc application_antidote1_1');
+  console.log('stdout:', stdout);
+  console.log('stderr:', stderr);
+}
+
+exports.call_DisconnectNetwork = function(){
+	call_DisconnectNetwork();
+}
+//Connect the interdc network
+exports.call_ConnectNetwork = function(){
+	call_ConnectNetwork();
+}
 function UserApps(calendarId, user,calendar) {      // Function returning the Set of aIds for the given view
     return atdClis[calendarId-1].map(user+"_apps").set(calendar);
 }

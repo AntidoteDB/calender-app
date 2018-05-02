@@ -107,7 +107,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div id="appChooseForm-1" hidden="hidden">
+                                <div id="appChooseForm-1"  hidden="hidden">
                                     <Label>Please solve conflict by choosing between values</Label>
                                     <table  class="table table-bordered table-striped">
                                         <tr>
@@ -146,7 +146,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input id="add-1" class="btn btn-btn-info btn-sm" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
+                                                <input id="add-1" class="btn btn-info btn-sm" type="submit" value="solve conflict" onclick="solveAppointment(this)" />
                                         </tr>
                                     </table>
                                 </div>
@@ -186,6 +186,10 @@
                     </div>    			
 			   </div>
             </div>
+			<div>
+			 <input type="button" class="btn btn-info" id="btnBreakConnection" value="Desynchronize" onclick="disableConnection(this)"/>
+			 <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Synchronize" onclick="enableConnection(this)"/>
+			</div>
             <div class="col-md-12">
                 <textarea rows="20" cols="100" id="console-1"></textarea>
             </div>

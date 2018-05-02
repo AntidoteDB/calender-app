@@ -30,6 +30,22 @@ function serverRequest(requestUrl, value, success) { // skeleton for performing 
     xhr.send(data); // send server request
 }
 
+function disableConnection()
+{
+    serverRequest("/api/" + 0 + "/disconnectNetwork", {
+        }, function (json) { // "val" covers the new participant name
+            consoleAdd("Successfully disconnected the interdc network"); 
+        });
+}
+
+function enableConnection()
+{
+    serverRequest("/api/" + 0 + "/connectNetwork", {
+        }, function (json) { // "val" covers the new participant name
+            consoleAdd("Successfully disconnected the interdc network"); 
+        });
+}
+
 function addNewParticipant(event) { // send addParticipant request
     let calendarId = parseInt(event.target.id.match(/\d/)[0]);
     consoleAdd(calendarId, "send AddNewParticipant Request");
