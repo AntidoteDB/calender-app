@@ -1,9 +1,10 @@
 /*jshint esversion: 6 */
-
-let express = require('express');
+let Promise = require("bluebird");
+Promise.longStackTraces();
+let express = Promise.promisifyAll(require('express'));
 let app = express();
 const conf = require('./config');
-let	antidoteClient = require('antidote_ts_client');
+let	antidoteClient = Promise.promisifyAll(require('antidote_ts_client'));
 
 
 //Requies for executing cmd
@@ -132,9 +133,15 @@ exports.updateAppointment = function(calendarId, aId, app,calendar,comment,res) 
         .then(_=>{
             userSet = _;
             // following is the correct version of assigned participants. (added/removed participants instead of assignedParticipants)
+            if (!app.removedParticipants){
+                app.removedParticipants = [];
+            }
             let remove = atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).set("participants").removeAll(app.removedParticipants));
             remove.then(_=>{
                  //console.log("remove " + app.removedParticipants.length + ": " + app.removedParticipants + " successfull");
+                 if (!app.addedParticipants){
+                    app.addedParticipants = [];
+                }
                  let add = atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).set("participants").addAll(app.addedParticipants));
                  add.then(_=>{
                      //console.log("adding " + app.addedParticipants.length + ": " + app.addedParticipants + " to app successfull");
@@ -144,7 +151,7 @@ exports.updateAppointment = function(calendarId, aId, app,calendar,comment,res) 
                      for (let p in app.removedParticipants){
                          atdClis[calendarId-1].update(UserApps(calendarId, app.removedParticipants[p], calendar).removed(aId));
                      }
-                     res.send({result:true});
+                     //return res.send({result:true});
                  })
                  .catch(err=>console.log("adding new values failed", err));
             })
