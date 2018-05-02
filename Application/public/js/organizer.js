@@ -35,7 +35,6 @@ function disableConnection()
     serverRequest("/api/" + 0 + "/disconnectNetwork", {
         }, function (json) { // "val" covers the new participant name
             consoleAdd("Successfully disconnected the interdc network"); 
-           
         });
 }
 
@@ -44,7 +43,6 @@ function enableConnection()
     serverRequest("/api/" + 0 + "/connectNetwork", {
         }, function (json) { // "val" covers the new participant name
             consoleAdd("Successfully disconnected the interdc network"); 
-           
         });
 }
 

@@ -22,7 +22,7 @@ exports.connectSyncronization = function () {
         res.send({result: true});
     }) // if operation was successful, a true flag is sent to the client
         .catch(err => {
-            console.log("Failed to disconnect interdc network", err);
+            console.log("Failed to connect interdc network", err);
             res.send({result: false});
         });
 };
