@@ -62,12 +62,12 @@
 	
 	apiRouter.post("/:calendar_id/disconnectNetwork", function (req, res) {
         console.log("Passing to wrapper");
-        wrapper.disconnectSyncronization();
+        wrapper.disconnectSyncronization(res);
     });
 	
 	apiRouter.post("/:calendar_id/connectNetwork", function (req, res) {
         console.log("Passing to wrapper");
-        wrapper.connectSyncronization();
+        wrapper.connectSyncronization(res);
     });
 
     apiRouter.post("/:calendar_id/addAppointment", function (req, res) {

@@ -41,11 +41,11 @@ async function call_ConnectNetwork() {
 }
 
 exports.call_DisconnectNetwork = function(){
-	call_DisconnectNetwork();
+	return call_DisconnectNetwork();
 }
 //Connect the interdc network
 exports.call_ConnectNetwork = function(){
-	call_ConnectNetwork();
+	return call_ConnectNetwork();
 }
 function UserApps(calendarId, user,calendar) {      // Function returning the Set of aIds for the given view
     return atdClis[calendarId-1].rrmap(user+"_apps").set(calendar);

@@ -33,16 +33,16 @@ function serverRequest(requestUrl, value, success) { // skeleton for performing 
 function disableConnection()
 {
     serverRequest("/api/" + 0 + "/disconnectNetwork", {
-        }, function (json) { // "val" covers the new participant name
-            consoleAdd("Successfully disconnected the interdc network"); 
+        }, function (json) { 
+            consoleAdd(calendarId, "Successfully disconnected the interdc network: " + json.result);
         });
 }
 
 function enableConnection()
 {
     serverRequest("/api/" + 0 + "/connectNetwork", {
-        }, function (json) { // "val" covers the new participant name
-            consoleAdd("Successfully disconnected the interdc network"); 
+        }, function (json) { 
+            consoleAdd(calendarId, "Successfully connected the interdc network: " + json.result);
         });
 }
 

@@ -5,7 +5,7 @@ let storage = require('./storage.js');
 // 'res' is the result value for sending back data to the client.
 // the view is defined by parameters 'participant' and 'calendar'
 
-exports.disconnectSyncronization = function () {
+exports.disconnectSyncronization = function (res) {
     let result = storage.call_DisconnectNetwork();
     result.then(_ => {
         res.send({result: true});
@@ -16,7 +16,7 @@ exports.disconnectSyncronization = function () {
         });
 };
 
-exports.connectSyncronization = function () {
+exports.connectSyncronization = function (res) {
     let result = storage.call_ConnectNetwork();
     result.then(_ => {
         res.send({result: true});
