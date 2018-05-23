@@ -3,7 +3,7 @@
   "description": "test mit rest._.",
   "author": "Tim Dellmann",
   "dependencies": {
-    "antidote_ts_client": "^0.1.7",
+    "antidote_ts_client": "^0.2.1",
     "bluebird": "^3.5.1",
     "body-parser": "~1.18.2",
     "compression": "^1.7.1",

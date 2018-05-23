@@ -23,7 +23,7 @@ for (var i in conf.antidote) {
 for (var i in atdClis){
     atdClis[i].requestTimeoutMs = 5000;
     userSets.push(atdClis[i].set("users")); // Set of available participants
-    appMaps.push(atdClis[i].map("appointments")); // AppMap, Map of Map of Appointmens
+    appMaps.push(atdClis[i].rrmap("appointments")); // AppMap, Map of Map of Appointmens
 }
  
 
@@ -48,7 +48,7 @@ exports.call_ConnectNetwork = function(){
 	call_ConnectNetwork();
 }
 function UserApps(calendarId, user,calendar) {      // Function returning the Set of aIds for the given view
-    return atdClis[calendarId-1].map(user+"_apps").set(calendar);
+    return atdClis[calendarId-1].rrmap(user+"_apps").set(calendar);
 }
 //===================================
 
@@ -93,15 +93,15 @@ exports.writeNewAppointment = function(calendarId, calendar, app){
     }
 
     return atdClis[calendarId-1].update([
-        appMaps[calendarId-1].map(id).multiValueRegister("id").set(app.id),
-        appMaps[calendarId-1].map(id).multiValueRegister("title").set(app.title),
-        appMaps[calendarId-1].map(id).multiValueRegister("start").set(app.start),
-        appMaps[calendarId-1].map(id).multiValueRegister("end").set(app.end),
-        appMaps[calendarId-1].map(id).multiValueRegister("allDay").set(app.allDay),
-        appMaps[calendarId-1].map(id).multiValueRegister("description").set(app.description),
-        appMaps[calendarId-1].map(id).set("participants").addAll(app.participants),
-        appMaps[calendarId-1].map(id).multiValueRegister("priority").set(app.priority),
-        appMaps[calendarId-1].map(id).set("comments").addAll(app.comments),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("id").set(app.id),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("title").set(app.title),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("start").set(app.start),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("end").set(app.end),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("allDay").set(app.allDay),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("description").set(app.description),
+        appMaps[calendarId-1].rrmap(id).set("participants").addAll(app.participants),
+        appMaps[calendarId-1].rrmap(id).multiValueRegister("priority").set(app.priority),
+        appMaps[calendarId-1].rrmap(id).set("comments").addAll(app.comments),
     ]);
 };
 exports.updateAppointment = function(calendarId, aId, app,calendar,comment,res) {
@@ -109,25 +109,25 @@ exports.updateAppointment = function(calendarId, aId, app,calendar,comment,res) 
     
     let userSet;
 
-    atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).multiValueRegister("id").set(app.id));
+    atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(aId).multiValueRegister("id").set(app.id));
 
     let updates = [];
 
     if(app.hasOwnProperty("title"))
-        updates.push(appMaps[calendarId-1].map(aId).multiValueRegister("title").set(app.title));
+        updates.push(appMaps[calendarId-1].rrmap(aId).multiValueRegister("title").set(app.title));
     if(app.hasOwnProperty("start"))
-        updates.push(appMaps[calendarId-1].map(aId).multiValueRegister("start").set(app.start));
+        updates.push(appMaps[calendarId-1].rrmap(aId).multiValueRegister("start").set(app.start));
     if(app.hasOwnProperty("end"))
-        updates.push(appMaps[calendarId-1].map(aId).multiValueRegister("end").set(app.end));
+        updates.push(appMaps[calendarId-1].rrmap(aId).multiValueRegister("end").set(app.end));
     if(app.hasOwnProperty("allDay"))
-        updates.push(appMaps[calendarId-1].map(aId).multiValueRegister("allDay").set(app.allDay));
+        updates.push(appMaps[calendarId-1].rrmap(aId).multiValueRegister("allDay").set(app.allDay));
     if(app.hasOwnProperty("description"))
-        updates.push(appMaps[calendarId-1].map(aId).multiValueRegister("description").set(app.description));
+        updates.push(appMaps[calendarId-1].rrmap(aId).multiValueRegister("description").set(app.description));
     if(app.hasOwnProperty("priority"))
-        updates.push(appMaps[calendarId-1].map(aId).multiValueRegister("priority").set(app.priority));
+        updates.push(appMaps[calendarId-1].rrmap(aId).multiValueRegister("priority").set(app.priority));
 
     atdClis[calendarId-1].update(updates);
-    atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).set("comments").add(comment));
+    atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(aId).set("comments").add(comment));
 
     return userSets[calendarId-1].read()
         .then(_=>{
@@ -136,13 +136,13 @@ exports.updateAppointment = function(calendarId, aId, app,calendar,comment,res) 
             if (!app.removedParticipants){
                 app.removedParticipants = [];
             }
-            let remove = atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).set("participants").removeAll(app.removedParticipants));
+            let remove = atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(aId).set("participants").removeAll(app.removedParticipants));
             remove.then(_=>{
                  //console.log("remove " + app.removedParticipants.length + ": " + app.removedParticipants + " successfull");
                  if (!app.addedParticipants){
                     app.addedParticipants = [];
                 }
-                 let add = atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).set("participants").addAll(app.addedParticipants));
+                 let add = atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(aId).set("participants").addAll(app.addedParticipants));
                  add.then(_=>{
                      //console.log("adding " + app.addedParticipants.length + ": " + app.addedParticipants + " to app successfull");
                      for (let p in app.addedParticipants){
@@ -160,10 +160,10 @@ exports.updateAppointment = function(calendarId, aId, app,calendar,comment,res) 
         .catch(err=>console.log("failed to read all names", err));
 };
 exports.writeComment = function(calendarId, aId,comment){
-    return atdClis[calendarId-1].update(appMaps[calendarId-1].map(aId).set("comments").add(comment));
+    return atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(aId).set("comments").add(comment));
 };
 exports.deleteAppointment = function(calendarId, aId){
-    return atdClis[calendarId-1].update(appMaps.remove(appMaps.map(aId)));
+    return atdClis[calendarId-1].update(appMaps.remove(appMaps.rrmap(aId)));
 };
 exports.deleteParticipant = function (calendarId, participant) {
     // more complex too, since the deleted participant has to be removed from all involved appointments
@@ -181,7 +181,7 @@ exports.deleteParticipant = function (calendarId, participant) {
             let AllApps = _.toJsObject();
             for (let i in AllApps){
                 if (contains(AllApps[i].participants, participant)){
-                    atdClis[calendarId-1].update(appMaps[calendarId-1].map(i).set("participants").remove(participant))
+                    atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(i).set("participants").remove(participant))
                         .then(res => console.log("removed " + participant + "from app.participants " + i))
                         .catch(err => console.log("failed remove " + participant + " from app.participants " + i, err));
                 }
