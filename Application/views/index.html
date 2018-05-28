@@ -30,7 +30,7 @@
 </head>
 
 <body>
-    <div class="container-full row" style="margin-left:10px;">
+    <div class="container-full row">
         <div class="col-md-6">
                     Name:
                     <select id="cbNames-1" onchange="onChangeCbNames(this)"></select>
@@ -182,17 +182,17 @@
 						<input type="text" class="form-control" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
 						<span class="input-group-btn">
 							<input type="button" class="btn btn-info" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
-						</span>
+                        </span>
+                        <input type="button" class="btn btn-info" id="btnBreakConnection" value="Desynchronize" onclick="disableConnection(this)"/>
+                        <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Synchronize" onclick="enableConnection(this)"/>
                     </div>    			
 			   </div>
             </div>
-			<div>
-			 <input type="button" class="btn btn-info" id="btnBreakConnection" value="Desynchronize" onclick="disableConnection(this)"/>
-			 <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Synchronize" onclick="enableConnection(this)"/>
-			</div>
-            <div class="col-md-12">
-                <textarea rows="20" cols="100" id="console-1"></textarea>
-            </div>
+            <!--
+                <div class="col-md-12">
+                    <textarea rows="20" cols="100" id="console-1"></textarea>
+                </div>
+            -->
         </div>
         <div class="col-md-6">
                 Name:
@@ -343,9 +343,11 @@
 					</div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <textarea rows="20" cols="100" id="console-2"></textarea>
-            </div>
+            <!--
+                <div class="col-md-12">
+                    <textarea rows="20" cols="100" id="console-2"></textarea>
+                </div>
+            -->
         </div>
     </div>
 </body>
