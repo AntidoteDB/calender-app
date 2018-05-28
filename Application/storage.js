@@ -163,7 +163,7 @@ exports.writeComment = function(calendarId, aId,comment){
     return atdClis[calendarId-1].update(appMaps[calendarId-1].rrmap(aId).set("comments").add(comment));
 };
 exports.deleteAppointment = function(calendarId, aId){
-    return atdClis[calendarId-1].update(appMaps.remove(appMaps.rrmap(aId)));
+    return atdClis[calendarId-1].update(appMaps.remove(appMaps.map(aId)));
 };
 exports.deleteParticipant = function (calendarId, participant) {
     // more complex too, since the deleted participant has to be removed from all involved appointments
