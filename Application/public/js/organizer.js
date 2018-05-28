@@ -34,7 +34,7 @@ function disableConnection()
 {
     serverRequest("/api/" + 0 + "/disconnectNetwork", {
         }, function (json) { 
-            consoleAdd(calendarId, "Successfully disconnected the interdc network: " + json.result);
+            consoleAdd(0, "Successfully disconnected the interdc network: " + json.result);
         });
 }
 
@@ -42,7 +42,7 @@ function enableConnection()
 {
     serverRequest("/api/" + 0 + "/connectNetwork", {
         }, function (json) { 
-            consoleAdd(calendarId, "Successfully connected the interdc network: " + json.result);
+            consoleAdd(0, "Successfully connected the interdc network: " + json.result);
         });
 }
 
