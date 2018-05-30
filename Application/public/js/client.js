@@ -86,9 +86,20 @@ function onRemoveParticipants(dom) { // send removeParticipant-request to the se
 function getAppointmentFromForm(calendarId) { // read appointment from inputform
     debugger;
     let name = document.getElementById('iname-' + calendarId).value;
-    let sDate = new Date(document.getElementById('istartDate-' + calendarId).value);
+    //if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
+		let sVarformatDate = document.getElementById('istartDate-' + calendarId).value;
+	    sDate = formatDate(sVarformatDate);
+		sDate = new Date(sDate);
+		
+		let eVarformatDate = document.getElementById('iendDate-' + calendarId).value;
+	    eDate = formatDate(eVarformatDate);
+		eDate = new Date(eDate);
+	//}else{
+		//sDate = new Date(document.getElementById('istartDate-' + calendarId).value);
+		//eDate = new Date(document.getElementById('iendDate-' + calendarId).value);
+	//} 
+
     sDate.setHours(sDate.getHours());
-    let eDate = new Date(document.getElementById('iendDate-' + calendarId).value);
     eDate.setHours(eDate.getHours());
     let desc = $('#desc-' + calendarId).val();
     let allday = isAllDayChecked();
@@ -105,6 +116,17 @@ function getAppointmentFromForm(calendarId) { // read appointment from inputform
         priority: priority
     };
     return res;
+}
+
+function formatDate(date){
+	var formattedData = replaceAll(date,"-","/");
+	formattedData = formattedData.replace("T"," ");
+	formattedData = formattedData.concat(" UTC");
+	return formattedData;
+}
+
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
 }
 
 function clearForm(calendarIds) { // set all input fields to empty and shows inputform
@@ -322,12 +344,20 @@ function disableInput(calendarId) { // disable inputform by 'global' calendar =>
 }
 
 function getAppointmentFromChooseForm(calendarId) { // get the solved conflict appointment from chooseForm
+    let sDate;
+    let eDate;
     let name = document.getElementById('cname-' + calendarId).value;
     let x = document.getElementById("cstartDate-" + calendarId).value;
-    let sDate = new Date(document.getElementById('cstartDate-' + calendarId).value);
+	let sVarformatDate = document.getElementById('cstartDate-' + calendarId).value;
+	sDate = formatDate(sVarformatDate);
+	sDate = new Date(sDate);
+		
+	let eVarformatDate = document.getElementById('cendDate-' + calendarId).value;
+	eDate = formatDate(eVarformatDate);
+	eDate = new Date(eDate);
     sDate.setHours(sDate.getHours());
-    let eDate = new Date(document.getElementById('cendDate-' + calendarId).value);
     eDate.setHours(eDate.getHours());
+
     let allday = document.getElementById("cendDate-" + calendarId).value == "true" ? true : false;
     let description = document.getElementById("cdesc-" + calendarId).value;
     let priority = document.getElementById("cpriority-" + calendarId).value;
