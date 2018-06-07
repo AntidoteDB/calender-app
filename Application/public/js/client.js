@@ -18,15 +18,93 @@ let participantsList = []; // list of available participants shown in the comboB
 $(document).ready(function () {
     var tour = new Tour({
         steps: [{
-            element: "#addAppointment-1",
-            title: "Adding appointment",
-            content: "In order to add appointment, either click this button or click on a timeline in the calendar."
+            element: "body",
+            title: "Welcome!",
+            content: "Welcome to the demonstartion of the Calendar Application! We will quickly guide you through the general routine. ",
+            placement: "top"
         },
         {
-            element: "#addAppointment-2",
-            title: "Adding appointment",
-            content: "In order to add appointment, either click this button or click on a timeline in the calendar."
+            element: "#newParticipant-1",
+            title: "Adding a participant",
+            content: "Firstly, type the name of the participant here in order to add it to the first calendar. Once you are done, click 'Next' to get the next instruction."
             
+        },
+        {
+            element: "#btnNewParticipant-1",
+            title: "Submit the data",
+            content: "Click here or 'ENTER' on your keyboard in order to sumbit the data."
+            
+        },
+        {
+            element: "#cbNames-1",
+            title: "List of participants",
+            content: "Here you can see a list of participants for the current calendar."
+        },
+        {
+            element: "#removeParticipant-1",
+            title: "Removing the participant",
+            content: "In case you made a typo, you can always use this button to remove selected participant from the list."
+        },
+        {
+            element: "#update-2",
+            title: "Updating the calendar",
+            content: "Now let's try some magic! Click this button and calendars will be synchonized! That means that both calendars will reach the same state. That's just cool, isn't it?",
+        },
+        {
+            element: "#newParticipant-2",
+            title: "Adding a participant",
+            content: "Let's add one more participant to the second calendar! Type the name here."
+        },
+        {
+            element: "#update-1",
+            title: "Updating the calendar",
+            content: "Update the first calendar and check that participant you just added is in the list."
+        },
+        {
+            element: ".fc-state-highlight:first",
+            title: "Adding an appointment",
+            content: "Now that boring part is behind, we can try to create an appointment. To do that just click at the timeline of any calendar and a pop-up will be shown."
+        },
+        {
+            element: "#iadd-1",
+            title: "Adding an appointment",
+            content: "Fill in all the information (but tick both of the created participants!) and once you are done, click this button to add an appointment."
+        },
+        {
+            element: "#update-2",
+            title: "Updating the calendar",
+            content: "As you already know, by updating the second caledar, you will get all the latest changes, which contain your newly created appointment",
+        },
+        {
+            element: "#btnBreakConnection",
+            title: "Disconnect the calendars",
+            content: "There is one more interesting step. By clicking this button, you can disconnect calendars and make independent changes for both of them. Let's try it out!"
+        },
+        {
+            element: "#calendar-1, #calendar-2",
+            title: "Experience a conflict",
+            content: "Make changes from different participants to the appointment in each calendar accordingly and then we will reestablsih the connection."
+        },
+        {
+            element: "#btnReestablishConnection",
+            title: "Reestabslish the connection",
+            content: "Click this and take a little wait for connection to be resumed."
+        },
+        {
+            element: "#update-1, #update-2",
+            title: "Update calendars",
+            content: "Now, if you update the calendars, you will experience a conflict, because there was a concurrent change to this appointment."
+        },
+        {
+            element: ".fc-time-grid-event",
+            title: "Solving the conflict",
+            content: "Click at one of these and check, which changes you want to keep. "
+        },
+        {
+            element: "body",
+            title: "The end",
+            content: "Well done, you have successfuly finished our tutorial and gained an experience, how to use the application. ",
+            placement: "top"
         }
     ]
     });
@@ -105,7 +183,6 @@ function onRemoveParticipants(dom) { // send removeParticipant-request to the se
 }
 
 function getAppointmentFromForm(calendarId) { // read appointment from inputform
-    debugger;
     let name = document.getElementById('iname-' + calendarId).value;
     //if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
     let sVarformatDate = document.getElementById('istartDate-' + calendarId).value;
@@ -256,7 +333,6 @@ function eventClick(calendarId, ev) { // if an event(appointment) is clicked, se
 }
 
 function getSelectedParticipants(calendarId) { // return a list of selected participants of inputform
-    debugger;
     let $container = $('#iSelParticipants-' + calendarId);
     let inputs = $container.find('input');
     let id = inputs.length;

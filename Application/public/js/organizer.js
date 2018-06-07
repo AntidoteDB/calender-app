@@ -82,8 +82,6 @@ function removeParticipant(calendarId) { // send removeParticipant request
 }
 
 function editAppointment(dom) { // send editAppointment request. This is NOT invoked after solving conflicts
-    // TODO check this functionality
-    debugger;
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     consoleAdd(calendarId, "Current ID for editing: " + currentID);
     var newApp = getAppointmentFromForm(calendarId);
@@ -98,11 +96,11 @@ function editAppointment(dom) { // send editAppointment request. This is NOT inv
         consoleAdd(calendarId, "editAppointment: " + json.result);
         clearForm([calendarId]); // clear inputForm
         getUpdates(calendarId); //request new updates
+        closeAppForm();
     });
 }
 
 function removeAppointment(dom) { // send removeAppointment request
-    // TODO check this functionality
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     consoleAdd(calendarId, "Current ID for deleting: " + currentID);
     serverRequest("/api/" + calendarId + "/removeAppointment", {
@@ -111,15 +109,14 @@ function removeAppointment(dom) { // send removeAppointment request
         consoleAdd(calendarId, "removeAppointment: " + json.result);
         clearForm([calendarId]);
         getUpdates(calendarId);
+        closeAppForm();
     });
 }
 
-function addAppointment(dom) { // send addAppointment request
-    // TODO check this functionality
-    debugger;
+function addAppointment(dom) { // send addAppointment request 
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     if (currentParticipant == "" || (typeof currentParticipant == "undefined") || $('#iname-' + calendarId).val() == "") {
-        alert("Calendar name and title should be filled out!");
+        alert("Calendar name, title and participants should be filled out!");
         return;
     }
     var app = getAppointmentFromForm(calendarId);
@@ -133,11 +130,18 @@ function addAppointment(dom) { // send addAppointment request
         getUpdates(calendarId);
         currentID = ""; //after an new appointment was created, set currentID to empty.
         // otherwise you could modify an "old" appointment
+        closeAppForm();
+    });
+}
+
+function closeAppForm(){
+    let $spans = $('#close-1, #close-2');	
+    $spans.each(function (i, elem){
+        $(elem).click();
     });
 }
 
 function addComment(event) { // send addComment request
-    // TODO check this functionality 
     let calendarId = parseInt(event.target.id.match(/\d/)[0]);
     var val = document.getElementById("iCommentInput-" + calendarId).value;
     $('#iCommentInput-' + calendarId).val("");
@@ -156,7 +160,6 @@ function addComment(event) { // send addComment request
 }
 
 function solveAppointment(dom) { // after the "right" value versions were selected, a editAppointment request is performed
-    // TODO check this functionality
     let calendarId = parseInt(dom.id.match(/\d/)[0]);
     consoleAdd(calendarId, "Solving conflict as 'editNewAppointment' with " + currentID);
     var app = getAppointmentFromChooseForm(calendarId);
