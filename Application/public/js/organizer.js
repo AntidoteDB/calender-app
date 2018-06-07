@@ -51,7 +51,7 @@ function enableConnection()
 			$('#lblConnectMsg').text('Connecting...');
 			$('#lblConnectMsg').css( "visibility", "visible" );
 			$( "#lblConnectMsg" ).css("background-color","#5cd65c");
-			$("#lblConnectMsg").show().delay(5000).fadeOut( "slow");
+			$("#lblConnectMsg").show().delay(10000).fadeOut( "slow");
         });
 }
 
