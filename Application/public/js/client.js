@@ -93,10 +93,10 @@ $(document).ready(function () {
         {
             element: "#update-1, #update-2",
             title: "Update calendars",
-            content: "Now, if you update the calendars, you will experience a conflict, because there was a concurrent change to this appointment."
+            content: "Now, if you update the calendars, you will experience a conflict, because there was a concurrent change to this appointment. If it is not appearing, wait a little bit more and press this button again."
         },
         {
-            element: ".fc-time-grid-event",
+            element: "#calendar-1, #calendar-2",
             title: "Solving the conflict",
             content: "Click at one of these and check, which changes you want to keep. "
         },
