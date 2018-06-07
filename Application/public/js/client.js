@@ -16,6 +16,21 @@ let currentEvent = {}; // current version of appointment, necessary to compare w
 let allDayChecked = false; // is allday radio checked? influences appearance of inputform
 let participantsList = []; // list of available participants shown in the comboBox
 $(document).ready(function () {
+    var tour = new Tour({
+        steps: [{
+            element: "#addAppointment-1",
+            title: "Adding appointment",
+            content: "In order to add appointment, either click this button or click on a timeline in the calendar."
+        },
+        {
+            element: "#addAppointment-2",
+            title: "Adding appointment",
+            content: "In order to add appointment, either click this button or click on a timeline in the calendar."
+            
+        }
+    ]
+    });
+    tour.setCurrentStep(0);
     initialize(); //initializes GUI
     let $calendars = $('#calendar-1, #calendar-2');
     $calendars.each(function (i, elem) {
@@ -40,6 +55,12 @@ $(document).ready(function () {
             }
         });
     });
+    if (tour.ended()) {
+        tour.restart();
+    } else {
+        tour.init();
+        tour.start();
+    }
 });
 
 function onEnterNewParticipant(event) // event, if new participant is entered in regarding textBox and 'enter' is clicked
@@ -87,17 +108,17 @@ function getAppointmentFromForm(calendarId) { // read appointment from inputform
     debugger;
     let name = document.getElementById('iname-' + calendarId).value;
     //if( navigator.userAgent.toLowerCase().indexOf('firefox') > -1 ){
-		let sVarformatDate = document.getElementById('istartDate-' + calendarId).value;
-	    sDate = formatDate(sVarformatDate);
-		sDate = new Date(sDate);
-		
-		let eVarformatDate = document.getElementById('iendDate-' + calendarId).value;
-	    eDate = formatDate(eVarformatDate);
-		eDate = new Date(eDate);
-	//}else{
-		//sDate = new Date(document.getElementById('istartDate-' + calendarId).value);
-		//eDate = new Date(document.getElementById('iendDate-' + calendarId).value);
-	//} 
+    let sVarformatDate = document.getElementById('istartDate-' + calendarId).value;
+    sDate = formatDate(sVarformatDate);
+    sDate = new Date(sDate);
+
+    let eVarformatDate = document.getElementById('iendDate-' + calendarId).value;
+    eDate = formatDate(eVarformatDate);
+    eDate = new Date(eDate);
+    //}else{
+    //sDate = new Date(document.getElementById('istartDate-' + calendarId).value);
+    //eDate = new Date(document.getElementById('iendDate-' + calendarId).value);
+    //} 
 
     sDate.setHours(sDate.getHours());
     eDate.setHours(eDate.getHours());
@@ -118,11 +139,11 @@ function getAppointmentFromForm(calendarId) { // read appointment from inputform
     return res;
 }
 
-function formatDate(date){
-	var formattedData = replaceAll(date,"-","/");
-	formattedData = formattedData.replace("T"," ");
-	formattedData = formattedData.concat(" UTC");
-	return formattedData;
+function formatDate(date) {
+    var formattedData = replaceAll(date, "-", "/");
+    formattedData = formattedData.replace("T", " ");
+    formattedData = formattedData.concat(" UTC");
+    return formattedData;
 }
 
 function replaceAll(str, find, replace) {
@@ -148,7 +169,7 @@ function clearForm(calendarIds) { // set all input fields to empty and shows inp
         let inputs = $container.find('input');
         let id = inputs.length;
         for (let i = 1; i <= id; i++) //deselect all patricipants
-            $container.find('#participant'+i)[0].checked = false;
+            $container.find('#participant' + i)[0].checked = false;
         showInput(calendarId);
     });
 }
@@ -241,7 +262,7 @@ function getSelectedParticipants(calendarId) { // return a list of selected part
     let id = inputs.length;
     let names = [];
     for (let i = 1; i <= id; i++) {
-        let $x = $container.find('#participant'+i);
+        let $x = $container.find('#participant' + i);
         if ($x[0].checked)
             names.push($x[0].value);
     }
@@ -256,7 +277,7 @@ function setSelectedParticipants(calendarId, participants) { // select participa
     let id = inputs.length;
     for (let i = 0; i < participants.length; i++)
         for (let j = 1; j <= id; j++) {
-            let $x = $container.find('#participant'+j);
+            let $x = $container.find('#participant' + j);
             if ($x[0].value == participants[i])
                 $x[0].checked = true;
         }
@@ -348,13 +369,13 @@ function getAppointmentFromChooseForm(calendarId) { // get the solved conflict a
     let eDate;
     let name = document.getElementById('cname-' + calendarId).value;
     let x = document.getElementById("cstartDate-" + calendarId).value;
-	let sVarformatDate = document.getElementById('cstartDate-' + calendarId).value;
-	sDate = formatDate(sVarformatDate);
-	sDate = new Date(sDate);
-		
-	let eVarformatDate = document.getElementById('cendDate-' + calendarId).value;
-	eDate = formatDate(eVarformatDate);
-	eDate = new Date(eDate);
+    let sVarformatDate = document.getElementById('cstartDate-' + calendarId).value;
+    sDate = formatDate(sVarformatDate);
+    sDate = new Date(sDate);
+
+    let eVarformatDate = document.getElementById('cendDate-' + calendarId).value;
+    eDate = formatDate(eVarformatDate);
+    eDate = new Date(eDate);
     sDate.setHours(sDate.getHours());
     eDate.setHours(eDate.getHours());
 
@@ -376,30 +397,30 @@ function getAppointmentFromChooseForm(calendarId) { // get the solved conflict a
 
 function setEventToChooseForm(calendarId, ev) { // set conflicting appointment to chooseForm (comboBoxes)
     currentID = ev.id[0];
-    $('#cname-'+calendarId).empty();
-    let x = document.getElementById("cname-"+calendarId);
+    $('#cname-' + calendarId).empty();
+    let x = document.getElementById("cname-" + calendarId);
     for (let i = 0; i < ev.title.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.title[i];
         x.add(option1);
     }
-    $('#cdesc-'+calendarId).empty();
-    x = document.getElementById("cdesc-"+calendarId);
+    $('#cdesc-' + calendarId).empty();
+    x = document.getElementById("cdesc-" + calendarId);
     for (let i = 0; i < ev.description.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.description[i];
         x.add(option1);
     }
-    $('#cpriority-'+calendarId).empty();
-    x = document.getElementById("cpriority-"+calendarId);
+    $('#cpriority-' + calendarId).empty();
+    x = document.getElementById("cpriority-" + calendarId);
     for (let i = 0; i < ev.priority.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.priority[i];
         x.add(option1);
     }
-    $('#cstartDate-'+calendarId).empty();
-    x = document.getElementById('cstartDate-'+calendarId);
-    let y = document.getElementById('cendDate-'+calendarId);
+    $('#cstartDate-' + calendarId).empty();
+    x = document.getElementById('cstartDate-' + calendarId);
+    let y = document.getElementById('cendDate-' + calendarId);
     for (let i = 0; i < ev.start.length; i++) {
         let start = new Date(ev.start[i]);
         let str1 = start.getFullYear() + "-" +
@@ -411,7 +432,7 @@ function setEventToChooseForm(calendarId, ev) { // set conflicting appointment t
         option1.text = str1;
         x.add(option1);
     }
-    $('#cendDate-'+calendarId).empty();
+    $('#cendDate-' + calendarId).empty();
 
     for (let i = 0; i < ev.end.length; i++) {
         let end = new Date(ev.end[i]);
@@ -422,15 +443,14 @@ function setEventToChooseForm(calendarId, ev) { // set conflicting appointment t
             (end.getMinutes().toString().length < 2 ? "0" + end.getMinutes() : end.getMinutes());
         let option1 = document.createElement("option");
         option1.text = str2;
-        if (document.getElementById('cendDate-'+calendarId) != null)
+        if (document.getElementById('cendDate-' + calendarId) != null)
             y.add(option1);
     }
     for (let i = 0; i < ev.allDay.length; i++) {
         let option1 = document.createElement("option");
         option1.text = ev.allDay[i];
         if (option1.text == "true")
-            if (document.getElementById('cendDate-'+calendarId) != null)
+            if (document.getElementById('cendDate-' + calendarId) != null)
                 y.add(option1);
     }
 }
-
