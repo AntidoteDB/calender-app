@@ -81,14 +81,39 @@ $(document).ready(function () {
             content: "There is one more interesting step. By clicking this button, you can disconnect calendars and make independent changes for both of them. Let's try it out!"
         },
         {
-            element: "#calendar-1, #calendar-2",
+            element: "#calendar-1",
             title: "Experience a conflict",
-            content: "Make changes from different participants to the appointment in each calendar accordingly and then we will reestablsih the connection."
+            content: "Click at the appointment in the first calendar."
+        },
+        {
+            element: "#idesc-1",
+            title: "Editing the description",
+            content: "Make a change here, for example."
+        },
+        {
+            element: "#iedit-1",
+            title: "Editing the appointment",
+            content: "Click here to confirm the change."
+        },
+        {
+            element: "#calendar-2",
+            title: "Experience a conflict",
+            content: "Now, click at the appointment in the second calendar."
+        },
+        {
+            element: "#idesc-2",
+            title: "Editing the description",
+            content: "Make a change here, for example."
+        },
+        {
+            element: "#iedit-2",
+            title: "Editing the appointment",
+            content: "Click here to confirm the change."
         },
         {
             element: "#btnReestablishConnection",
             title: "Reestabslish the connection",
-            content: "Click this and take a little wait for connection to be resumed."
+            content: "Click this and take a little wait for the connection to be resumed."
         },
         {
             element: "#update-1, #update-2",
@@ -99,6 +124,11 @@ $(document).ready(function () {
             element: "#calendar-1, #calendar-2",
             title: "Solving the conflict",
             content: "Click at one of these and check, which changes you want to keep. "
+        },
+        {
+            element: "#add-1, #add-2",
+            title: "Solve the conflict",
+            content: "Once you are done, press this button to solve the conflict."
         },
         {
             element: "body",
