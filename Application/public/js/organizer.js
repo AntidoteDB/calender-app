@@ -35,14 +35,23 @@ function disableConnection()
     serverRequest("/api/" + 0 + "/disconnectNetwork", {
         }, function (json) { 
             consoleAdd(0, "Successfully disconnected the interdc network: " + json.result);
+			$('#lblConnectMsg').text('Disconnecting...');
+			$('#lblConnectMsg').css( "visibility", "visible" );
+			$( "#lblConnectMsg" ).css("background-color","#ff4d4d");
+			$("#lblConnectMsg").show().delay(5000).fadeOut( "slow");
         });
 }
+ 
 
 function enableConnection()
 {
     serverRequest("/api/" + 0 + "/connectNetwork", {
         }, function (json) { 
             consoleAdd(0, "Successfully connected the interdc network: " + json.result);
+			$('#lblConnectMsg').text('Connecting...');
+			$('#lblConnectMsg').css( "visibility", "visible" );
+			$( "#lblConnectMsg" ).css("background-color","#5cd65c");
+			$("#lblConnectMsg").show().delay(5000).fadeOut( "slow");
         });
 }
 

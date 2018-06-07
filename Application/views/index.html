@@ -18,6 +18,12 @@
     <script type="application/javascript" src='../js/moment.min.js'></script>
     <script type="application/javascript" src='../js/fullcalendar.js'></script>
     <script type="application/javascript" src='../js/appoinmentPopup.js'></script>
+	
+	<style>
+	#lblConnectMsg{
+		visibility:hidden;
+	}
+	</style>
 </head>
 
 <body>
@@ -174,8 +180,9 @@
 						<span class="input-group-btn">
 							<input type="button" class="btn btn-info" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
                         </span>
-                        <input type="button" class="btn btn-info" id="btnBreakConnection" value="Desynchronize" onclick="disableConnection(this)"/>
-                        <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Synchronize" onclick="enableConnection(this)"/>
+                        <input type="button" class="btn btn-info" id="btnBreakConnection" value="Disconnect" onclick="disableConnection(this)"/>
+                        <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Connect" onclick="enableConnection(this)"/>
+						<div><span id="lblConnectMsg">Danger Label</span></div>
                     </div>    			
 			   </div>
             </div>
