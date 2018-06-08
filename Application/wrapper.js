@@ -1,10 +1,35 @@
+/*jshint esversion: 6 */
+
 let storage = require('./storage.js');
 
 // 'res' is the result value for sending back data to the client.
 // the view is defined by parameters 'participant' and 'calendar'
 
-exports.addAppointment = function (calendar, app, res) {
-    let result = storage.writeNewAppointment(calendar, app); //write new appointment to storage
+exports.disconnectSyncronization = function (res) {
+    let result = storage.call_DisconnectNetwork();
+    result.then(_ => {
+        res.send({result: true});
+    }) // if operation was successful, a true flag is sent to the client
+        .catch(err => {
+            console.log("Failed to disconnect interdc network", err);
+            res.send({result: false});
+        });
+};
+
+exports.connectSyncronization = function (res) {
+    let result = storage.call_ConnectNetwork();
+    result.then(_ => {
+        res.send({result: true});
+    }) // if operation was successful, a true flag is sent to the client
+        .catch(err => {
+            console.log("Failed to connect interdc network", err);
+            res.send({result: false});
+        });
+};
+
+
+exports.addAppointment = function (calendarId, calendar, app, res) {
+    let result = storage.writeNewAppointment(calendarId, calendar, app); //write new appointment to storage
     result.then(_ => {
         res.send({result: true});
     }) // if operation was successful, a true flag is sent to the client
@@ -13,8 +38,8 @@ exports.addAppointment = function (calendar, app, res) {
             res.send({result: false});
         });
 };
-exports.editAppointment = function (id, app, calendar, comment, res) {
-    let result = storage.updateAppointment(id, app, calendar, comment, res); //update appointment in antidote
+exports.editAppointment = function (calendarId, id, app, calendar, comment, res) {
+    let result = storage.updateAppointment(calendarId, id, app, calendar, comment, res); //update appointment in antidote
     result.then(_ => {
         console.log("Appointment successfully edited with id: " + id + ", try to read all Appointments");
         res.send({result: true});
@@ -24,8 +49,8 @@ exports.editAppointment = function (id, app, calendar, comment, res) {
             res.send({result: false});
         });
 };
-exports.removeAppointment = function (id, res) {
-    let result = storage.deleteAppointment(id);
+exports.removeAppointment = function (calendarId, id, res) {
+    let result = storage.deleteAppointment(calendarId, id);
     result.then(_ => {
         console.log("Appointment successfully removed with id: " + id);
         res.send({result: true});
@@ -35,8 +60,8 @@ exports.removeAppointment = function (id, res) {
             res.send({result: false});
         });
 };
-exports.addComment = function (id, comment, res) {
-    let result = storage.writeComment(id, comment);
+exports.addComment = function (calendarId, id, comment, res) {
+    let result = storage.writeComment(calendarId, id, comment);
     result.then(_ => {/*console.log("Comment " + comment + " to app " + id);*/
         res.send({result: true});
     })
@@ -45,15 +70,15 @@ exports.addComment = function (id, comment, res) {
             res.send({result: false});
         });
 };
-exports.getUpdates = function (participant, calendar, res) {
+exports.getUpdates = function (calendarId, participant, calendar, res) {
     //this request requires more database operations (nested query), therefore this procedure is more complex
     let updateObject = {participants: [], apps: []}; //create empty object, that will be sent back to the client
     let UserApps, UserApps2, AllApps;
     let y, y2;
-    let x = storage.readAllParticipants();
+    let x = storage.readAllParticipants(calendarId);
 
-    y = storage.readAllUserAppos(participant, calendar);
-    let z = storage.readAllAppointments();
+    y = storage.readAllUserAppos(calendarId, participant, calendar);
+    let z = storage.readAllAppointments(calendarId);
 
     x.then(valuea => {
         updateObject.participants = valuea;
@@ -71,17 +96,15 @@ exports.getUpdates = function (participant, calendar, res) {
             }).catch(err => {
                 console.log("GetUpdates: Participants send back to client, readAllAppointments failed", err);
                 res.send(updateObject);
-            })
+            });
         }).catch(err => {
             console.log("GetUpdates: Participants send back to client, readAllUserAppos failed", err);
             res.send(updateObject);
-        })
-    }).catch(err => console.log("Wrapper.getUpdates: failed to read Updates, readAllParticipants failed", err))
-
-
+        });
+    }).catch(err => console.log("Wrapper.getUpdates: failed to read Updates, readAllParticipants failed", err));
 };
-exports.addParticipant = function (participant, res) { // add new participant to storage
-    let result = storage.addParticipant(participant);
+exports.addParticipant = function (calendarId, participant, res) { // add new participant to storage
+    let result = storage.addParticipant(calendarId, participant);
     result.then(_ => {
         res.send({result: true});
     })
@@ -90,13 +113,13 @@ exports.addParticipant = function (participant, res) { // add new participant to
             res.send({result: false});
         });
 };
-exports.removeParticipant = function (participant, res) { // remove participant from storage
-    let result = storage.deleteParticipant(participant);
+exports.removeParticipant = function (calendarId, participant, res) { // remove participant from storage
+    let result = storage.deleteParticipant(calendarId, participant);
     result.then(_ => {
         res.send({result: true});
     })
         .catch(err => {
-            console.log("wrapper: failed to delete participant " + participant, err), res.send({result: false})
+            console.log("wrapper: failed to delete participant " + participant, err), res.send({result: false});
         });
 };
 

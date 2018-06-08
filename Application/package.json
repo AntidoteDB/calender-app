@@ -3,10 +3,19 @@
   "description": "test mit rest._.",
   "author": "Tim Dellmann",
   "dependencies": {
-    "antidote_ts_client": "^0.1.0",
-    "body-parser": "^1.15.2",
-    "express": "^4.9.8",
+    "antidote_ts_client": "^0.2.1",
+    "bluebird": "^3.5.1",
+    "body-parser": "~1.18.2",
+    "compression": "^1.7.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "helmet": "^3.11.0",
+    "morgan": "~1.9.0",
     "node-restful": "^0.2.5",
+    "pkill": "^2.0.0",
+    "pug": "2.0.0-beta11",
+    "serve-favicon": "~2.4.5",
     "socket.io": "*"
   },
   "devDependencies": {
@@ -19,6 +28,7 @@
     "babel-preset-react": "^6.16.0"
   },
   "scripts": {
+    "start": "node ./bin/www",
     "test-cov": "./runTest.sh",
     "test": "./runTestCoverage.sh"
   },
