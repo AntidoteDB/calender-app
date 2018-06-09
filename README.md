@@ -1,38 +1,52 @@
-To run the application, change current directory to /Application
+## Running Instructions
 
-    cd Application
+#### Prerequisites 
 
-and run
+To be able to run the application, you have to install `nodejs` and `Docker`.
 
-	`sudo docker-compose up`
+#### Installing the packages
 
-After initialization, the application is avaliable under
+After performing steps above, open a terminal in the folder `calender-app\Application` and install latest node packages. To do that, run in that folder the command: 
 
-	`localhost:3000`
+````terminal 
+npm i
+````
 
-and
+#### Running docker containers
 
-	`localhost:3001`
+Once it is done, we can start docker containers by running in the same folder the following command:
 
-where both versions are connected to different application- and antidote servers.
-To break the connection and further the synchronisation of the data centers, just run
+````terminal 
+docker-compose up
+````
 
-	`docker-compose exec antidote1 tc qdisc replace dev eth0 root netem loss 100%`
+#### Running the application
 
-This will cause 100% packets to get lost.
-If you made some changes in the single applications, you can start the synchronization by running
+After this process is finished, to start the application open a different terminal and under the same folder `calender-app\Application` run the command:
 
-	`docker-compose exec antidote1 tc qdisc replace dev eth0 root netem loss 0%`
+````terminal 
+npm start
+````
 
-If you changed the same appointment in both instances, you should get notified about a conflict after several seconds.
-If you want to reset the database state, you can just run
+The application is going to be available under
 
-	`sudo docker-compose down`
+````terminal
+localhost:3000
+````
 
-Hints: The synchronization of the single data centers can last some seconds, so do not wonder if the updates from DC1 do not occurre in DC2 immediately.
-The same is valid for conflicts as well.
+Both calendars there are connected to different antidote servers.
 
-To install necessary node.js packages, run
-    npm install
+Afterwards, follow the instructions in the application to find out how to use it. 
 
-In case of the error happening during the execution of "link.sh", change line break types from "Windows" to "Unix" (It is convenient to do that in Notepad++)
+#### Resetting the database state
+
+In order to reset the state of the database, run the command:
+
+```` terminal 
+docker-compose down
+````
+
+#### Hints
+
+- The synchronization of data centers can last some seconds, so do not wonder if the updates from DC1 do not occur in DC2 immediately. The same is valid for conflicts as well.
+- **For Windows users:** in case of an error happening during the execution of `link.sh`, change line break types from `Windows` to `Unix` (It is convenient to do that in `Notepad++`).
