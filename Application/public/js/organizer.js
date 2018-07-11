@@ -38,10 +38,26 @@ function disableConnection()
 			$('#lblConnectMsg').text('Disconnecting...');
 			$('#lblConnectMsg').css( "visibility", "visible" );
 			$( "#lblConnectMsg" ).css("background-color","#ff4d4d");
-			$("#lblConnectMsg").show().delay(5000).fadeOut( "slow");
+			$("#lblConnectMsg").show().delay(5000).fadeOut( "slow", function(){
+				freezeSecondCalendar();
+			});
+			
         });
 }
  
+function freezeSecondCalendar()
+{
+    $('#calendar2').fadeTo('slow',.6);
+	$('#calendar2').append('<div id = "tempDiv" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.4;filter: alpha(opacity = 50)"></div>');
+}
+
+function unfreezeSecondCalendar()
+{
+	$('#calendar2').css('opacity','1.0');
+	$('#calendar2').css('filter','alpha(opacity = 0)');
+    $('#tempDiv').remove();
+	
+}
 
 function enableConnection()
 {
@@ -51,7 +67,10 @@ function enableConnection()
 			$('#lblConnectMsg').text('Connecting...');
 			$('#lblConnectMsg').css( "visibility", "visible" );
 			$( "#lblConnectMsg" ).css("background-color","#5cd65c");
-			$("#lblConnectMsg").show().delay(10000).fadeOut( "slow");
+			$("#lblConnectMsg").show().delay(10000).fadeOut( "slow", function(){
+				unfreezeSecondCalendar();
+			});
+			
         });
 }
 
