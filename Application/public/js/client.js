@@ -81,6 +81,11 @@ $(document).ready(function () {
             content: "There is one more interesting step. By clicking this button, you can disconnect calendars and make independent changes for both of them. Let's try it out!"
         },
         {
+            element: "#addAppointment-1",
+            title: "Calendar is disabled.",
+            content: "Once the connection for calendar is broken, the main functionality of the calendar is disabled. Now you can only edit already existing appointments."
+        },
+        {
             element: "#calendar-1",
             title: "Experience a conflict",
             content: "Click at the appointment in the first calendar."
