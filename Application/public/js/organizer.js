@@ -1,6 +1,6 @@
 // this file is responsible for executing the http-requests.
 /*jshint esversion: 6 */
-
+var disconneted = false;
 function getCurrentDate() { // returns the current Date and Time used in comments
     var date = new Date();
     var month = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
@@ -47,16 +47,22 @@ function disableConnection()
  
 function freezeSecondCalendar()
 {
-    $('#calendar2').fadeTo('slow',.6);
-	$('#calendar2').append('<div id = "tempDiv" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.4;filter: alpha(opacity = 50)"></div>');
+	disconneted = true;
+    $('#calendar1TopGroup').fadeTo('slow',.6);
+	$('#calendar1TopGroup').append('<div id = "tempDivCalendar1Top" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.3;filter: alpha(opacity = 80)"></div>');
+	$('#calendar1BottomGroup').fadeTo('slow',.6);
+	$('#calendar1BottomGroup').append('<div id = "tempDivCalendar1Bottom" style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.3;filter: alpha(opacity = 80)"></div>');
 }
 
 function unfreezeSecondCalendar()
 {
-	$('#calendar2').css('opacity','1.0');
-	$('#calendar2').css('filter','alpha(opacity = 0)');
-    $('#tempDiv').remove();
-	
+	$('#calendar1TopGroup').css('opacity','1.0');
+	$('#calendar1TopGroup').css('filter','alpha(opacity = 0)');
+	$('#calendar1BottomGroup').css('opacity','1.0');
+	$('#calendar1BottomGroup').css('filter','alpha(opacity = 0)');
+    $('#tempDivCalendar1Top').remove();
+	$('#tempDivCalendar1Bottom').remove();
+	disconneted = false;
 }
 
 function enableConnection()

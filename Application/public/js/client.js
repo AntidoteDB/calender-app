@@ -328,19 +328,29 @@ function initialize() { // initializes GUI and fullCalendar with default values
 
 function dayClick(calendarId, date) { // if an empty time slot is clicked, add the time and ...
     // ...the current selected patricipant to the inputform. date is of type Date
-    let start = new Date(date);
-    start.setHours(start.getHours());
-    let end = new Date(date);
-    end.setMinutes(end.getMinutes() + 30);
-    end.setHours(end.getHours());
-    clearForm([calendarId]);
-    setEventToForm(calendarId, {
-        start: start,
-        end: end,
-        participants: [currentParticipant]
-    });
-    openModel(calendarId);
-    document.getElementById("iadd-" + calendarId).disabled = false;
+		if(!disconneted){
+			performDayClick(calendarId, date);
+		}else{
+			if(calendarId == 2){
+			performDayClick(calendarId, date);
+			}
+		}
+}
+
+function performDayClick(calendarId, date){
+	let start = new Date(date);
+			start.setHours(start.getHours());
+			let end = new Date(date);
+			end.setMinutes(end.getMinutes() + 30);
+			end.setHours(end.getHours());
+			clearForm([calendarId]);
+			setEventToForm(calendarId, {
+				start: start,
+				end: end,
+				participants: [currentParticipant]
+			});
+			openModel(calendarId);
+			document.getElementById("iadd-" + calendarId).disabled = false;
 }
 
 function eventClick(calendarId, ev) { // if an event(appointment) is clicked, set the values to the inputform. ev is the JSON-struct    

@@ -29,13 +29,14 @@
 <body>
     <div class="container-full row">
         <div class="col-md-6">
+		<div class="input-group" id="calendar1TopGroup">
                     Name:
                     <select id="cbNames-1" onchange="onChangeCbNames(this)"></select>
                     <input type="button" class="btn btn-info" id="removeParticipant-1" value="Remove" onclick="onRemoveParticipants(this)" /> Calendar View:
                     <label class="text-success" id="cbCalendars-1">Business</label>
                     <input type="button" class="btn btn-info" id="update-1" value="Update" onclick="getUpdates(this)" />
 					<input type="button" class="btn btn-info" id="addAppointment-1" value="new appoinment" onclick="openModel(this)"/>
-					
+					</div>
 					<!--Model pop code for calendar 1-->
 					<div id="modelPop-1" class="model">
 						<div class="model-content">
@@ -175,15 +176,18 @@
                     </table>
 					 
 					
-					<div class="input-group">
+					<div class="input-group" id="calendar1BottomGroup">
 						<input type="text" class="form-control" id="newParticipant-1" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
 						<span class="input-group-btn">
 							<input type="button" class="btn btn-info" id="btnNewParticipant-1" value="add new participant" onclick="addNewParticipant(event)" />
                         </span>
+						
+                    </div>    
+					<div class="input-group">
                         <input type="button" class="btn btn-info" id="btnBreakConnection" value="Disconnect" onclick="disableConnection(this)"/>
-                        <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Connect" onclick="enableConnection(this)"/>
-						<div><span id="lblConnectMsg">Danger Label</span></div>
-                    </div>    			
+                        <input type="button" class="btn btn-info" id="btnReestablishConnection" value="Connect" onclick="enableConnection(this)"/>	
+						<div><span id="lblConnectMsg">Danger Label</span></div>		
+			</div>						
 			   </div>
             </div>
             <!--
@@ -193,13 +197,14 @@
             -->
         </div>
         <div class="col-md-6">
+			<div class="input-group" id="calendar2TopGroup">
                 Name:
                 <select id="cbNames-2" onchange="onChangeCbNames(this)"></select>
                 <input type="button" class="btn btn-info" id="removeParticipant-2" value="Remove" onclick="onRemoveParticipants(this)" /> Calendar View:
                 <label class="text-success" id="cbCalendars-2">Business</label>
                 <input type="button" class="btn btn-info" id="update-2" value="Update" onclick="getUpdates(this)" />
 				<input type="button" class="btn btn-info" id="addAppointment-2" value="new appoinment" onclick="openModel(this)"/>
-				
+			</div>
 				<!--Model pop code for calendar 2-->
 					<div id="modelPop-2" class="model">
 						<div class="model-content">
@@ -333,7 +338,7 @@
                             </td>     
                         </tr>
                     </table>
-					<div class="input-group">
+					<div class="input-group" id="calendar2BottomGroup">
 						<input type="text" class="form-control" id="newParticipant-2" placeholder="insert name here" onKeyPress="onEnterNewParticipant(event)" />
 						<span class="input-group-btn">
 							<input type="button" class="btn btn-info" id="btnNewParticipant-2" value="add new participant" onclick="addNewParticipant(event)" />
